@@ -1,38 +1,51 @@
 package com.bookweb.model;
 
-import org.springframework.data.annotation.Id;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Category {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private String name;
 
-	public Category() {
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	public Category(String name) {
-		this.name = name;
-	}
+    private String name;
 
-	public Long getId() {
-		return id;
-	}
+    // ManyToMany กับ Book
+    @ManyToMany(mappedBy = "categories")
+    private Set<Book> books = new HashSet<>();
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Category() {
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Category(String name) {
+        this.name = name;
+    }
 
-	public void setIdName(String name) {
-		this.name = name;
-	}
+    // Getter/Setter
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
 }
