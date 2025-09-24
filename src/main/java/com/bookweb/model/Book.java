@@ -1,16 +1,22 @@
 package com.bookweb.model;
 
-import org.springframework.data.annotation.Id;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
+@Entity
 public class Book {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String title;
@@ -19,18 +25,20 @@ public class Book {
 	@Column(length = 2000)
 	private String description;
 
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Category category;
+	// CascadeType.MERGE : update book => merge (update) category
+	// EAGER => โหลด categories มาพร้อมกับ Book
+	@ManyToMany(cascade = { CascadeType.MERGE }, fetch = FetchType.EAGER)
+	@JoinTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	private List<Category> categories;
 
 	public Book() {
 	}
 
-	public Book(String title, String author, String description, Category category) {
+	public Book(String title, String author, String description, List<Category> category) {
 		this.title = title;
 		this.author = author;
 		this.description = description;
-		this.category = category;
+		this.categories = category;
 	}
 
 	public Long getId() {
@@ -65,11 +73,11 @@ public class Book {
 		this.description = description;
 	}
 
-	public Category getCategory() {
-		return category;
+	public List<Category> getCategories() {
+		return categories;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 }
