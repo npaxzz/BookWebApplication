@@ -25,6 +25,7 @@ public class Book {
 	@Column(length = 2000)
 	private String description;
 
+	// ManyToMany: หนังสือหนึ่งเล่มอาจอยู่หลาย Category
 	// CascadeType.MERGE : update book => merge (update) category
 	// EAGER => โหลด categories มาพร้อมกับ Book
 	@ManyToMany(cascade = { CascadeType.MERGE }, fetch = FetchType.EAGER)
