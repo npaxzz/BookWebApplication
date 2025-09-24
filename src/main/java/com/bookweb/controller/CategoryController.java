@@ -55,8 +55,9 @@ public class CategoryController {
 
 	// DELETE: ลบ category
 	@DeleteMapping("/{id}")
-	public void deleteCategory(@PathVariable Long id) {
+	public String deleteCategory(@PathVariable Long id) {
 		categoryService.deleteCategory(id);
+		return "Category deleted successfully";
 	}
 
 	// GET: ดึงหนังสือตาม category

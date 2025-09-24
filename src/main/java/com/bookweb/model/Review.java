@@ -1,5 +1,7 @@
 package com.bookweb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +21,7 @@ public class Review {
 
 	@ManyToOne
 	@JoinColumn(name = "book_id")
+	@JsonIgnoreProperties("reviews") // ป้องกัน infinite loop
 	private Book book;
 
 	public Review() {

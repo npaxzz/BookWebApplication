@@ -66,7 +66,8 @@ public class BookController {
 
 	// DELETE: ลบหนังสือ
 	@DeleteMapping("/{id}")
-	public void deleteBook(@PathVariable Long id) {
+	public String deleteBook(@PathVariable Long id) {
 		bookService.deleteBook(id);
+		return "Book deleted successfully";
 	}
 }
