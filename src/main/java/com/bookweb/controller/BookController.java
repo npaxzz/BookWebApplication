@@ -38,6 +38,7 @@ public class BookController {
 
 	// GET: ค้นหาหนังสือจาก title , author
 	// http://localhost:8085/books/search?title=...
+	// http://localhost:8085/books/search?author=...
 	@GetMapping("/search")
 	public List<Book> searchBooks(@RequestParam(required = false) String title,
 			@RequestParam(required = false) String author) {
@@ -51,12 +52,13 @@ public class BookController {
 	}
 
 	// POST: เพิ่มหนังสือใหม่
+	// title , author , description , categories : []
 	@PostMapping
 	public Book addBook(@RequestBody Book book) {
 		return bookService.saveBook(book);
 	}
 
-	// อัพเดตหนังสือ
+	// Put: อัพเดตหนังสือ
 	@PutMapping("/{id}")
 	public Book updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
 		return bookService.updateBook(id, updatedBook);
