@@ -1,8 +1,7 @@
 package com.bookweb.model;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,8 +17,7 @@ public class Category {
 	private String name;
 
 	@ManyToMany(mappedBy = "categories")
-	@JsonIgnore // categories JSON มี id + name
-	private List<Book> books;
+	private Set<Item> items = new HashSet<>();
 
 	public Category() {
 	}
@@ -44,11 +42,11 @@ public class Category {
 		this.name = name;
 	}
 
-	public List<Book> getBooks() {
-		return books;
+	public Set<Item> getItems() {
+		return items;
 	}
 
-	public void setBooks(List<Book> books) {
-		this.books = books;
+	public void setItems(Set<Item> items) {
+		this.items = items;
 	}
 }

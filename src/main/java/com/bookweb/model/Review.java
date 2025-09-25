@@ -1,7 +1,5 @@
 package com.bookweb.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,18 +18,17 @@ public class Review {
 	private String comment;
 
 	@ManyToOne
-	@JoinColumn(name = "book_id")
-	@JsonIgnoreProperties("reviews") // ป้องกัน infinite loop
-	private Book book;
+	@JoinColumn(name = "item_id", nullable = false)
+	private Item item;
 
 	public Review() {
 	}
 
-	public Review(String reviewerName, int rating, String comment, Book book) {
+	public Review(String reviewerName, int rating, String comment, Item item) {
 		this.reviewerName = reviewerName;
 		this.rating = rating;
 		this.comment = comment;
-		this.book = book;
+		this.item = item;
 	}
 
 	public Long getId() {
@@ -66,12 +63,12 @@ public class Review {
 		this.comment = comment;
 	}
 
-	public Book getBook() {
-		return book;
+	public Item getItem() {
+		return item;
 	}
 
-	public void setBook(Book book) {
-		this.book = book;
+	public void setItem(Item item) {
+		this.item = item;
 	}
 
 }

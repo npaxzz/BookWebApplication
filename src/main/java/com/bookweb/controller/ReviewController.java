@@ -24,37 +24,31 @@ public class ReviewController {
 		this.reviewService = reviewService;
 	}
 
-	// ดึงรีวิวทั้งหมด
 	@GetMapping
 	public List<Review> getAllReviews() {
 		return reviewService.getAllReviews();
 	}
 
-	// ดึงรีวิวตาม id
 	@GetMapping("/{id}")
 	public Review getReviewById(@PathVariable Long id) {
 		return reviewService.getReviewById(id);
 	}
 
-	// ดึงรีวิวของ Book
-	@GetMapping("/book/{bookId}")
-	public List<Review> getReviewsByBook(@PathVariable Long bookId) {
-		return reviewService.getReviewsByBook(bookId);
+	@GetMapping("/item/{itemId}")
+	public List<Review> getReviewsByItem(@PathVariable Long itemId) {
+		return reviewService.getReviewsByItem(itemId);
 	}
 
-	// เพิ่มรีวิวให้ Book
-	@PostMapping("/book/{bookId}")
-	public Review addReview(@PathVariable Long bookId, @RequestBody Review review) {
-		return reviewService.createReview(bookId, review);
+	@PostMapping("/item/{itemId}")
+	public Review addReview(@PathVariable Long itemId, @RequestBody Review review) {
+		return reviewService.createReview(itemId, review);
 	}
 
-	// อัปเดตรีวิว
 	@PutMapping("/{id}")
 	public Review updateReview(@PathVariable Long id, @RequestBody Review reviewDetails) {
 		return reviewService.updateReview(id, reviewDetails);
 	}
 
-	// ลบรีวิว
 	@DeleteMapping("/{id}")
 	public String deleteReview(@PathVariable Long id) {
 		reviewService.deleteReview(id);

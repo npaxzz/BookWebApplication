@@ -8,5 +8,5 @@ import com.bookweb.model.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-	List<Review> findByBookId(Long bookId);
+	List<Review> findByItemId(Long itemId);
 }

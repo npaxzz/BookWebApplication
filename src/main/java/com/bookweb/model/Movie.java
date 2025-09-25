@@ -6,14 +6,13 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("BOOK")
-public class Book extends Item {
+@DiscriminatorValue("MOVIE")
+public class Movie extends Item {
 
-	public Book() {
-		super();
+	public Movie() {
 	}
 
-	public Book(String title, String creator, String description, Set<Category> categories) {
+	public Movie(String title, String creator, String description, Set<Category> categories) {
 		super(title, creator, description, categories);
 	}
 }
