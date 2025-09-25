@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookweb.dto.ReviewDTO;
 import com.bookweb.model.Review;
 import com.bookweb.service.ReviewService;
 
@@ -24,28 +25,26 @@ public class ReviewController {
 		this.reviewService = reviewService;
 	}
 
+	// http://localhost:8085/reviews
 	@GetMapping
-	public List<Review> getAllReviews() {
+	public List<ReviewDTO> getAllReviews() {
 		return reviewService.getAllReviews();
 	}
 
+	// http://localhost:8085/reviews/6
 	@GetMapping("/{id}")
-	public Review getReviewById(@PathVariable Long id) {
+	public ReviewDTO getReviewById(@PathVariable Long id) {
 		return reviewService.getReviewById(id);
 	}
 
-	@GetMapping("/item/{itemId}")
-	public List<Review> getReviewsByItem(@PathVariable Long itemId) {
-		return reviewService.getReviewsByItem(itemId);
-	}
-
+	// http://localhost:8085/reviews/item/5
 	@PostMapping("/item/{itemId}")
-	public Review addReview(@PathVariable Long itemId, @RequestBody Review review) {
+	public ReviewDTO createReview(@PathVariable Long itemId, @RequestBody Review review) {
 		return reviewService.createReview(itemId, review);
 	}
 
 	@PutMapping("/{id}")
-	public Review updateReview(@PathVariable Long id, @RequestBody Review reviewDetails) {
+	public ReviewDTO updateReview(@PathVariable Long id, @RequestBody Review reviewDetails) {
 		return reviewService.updateReview(id, reviewDetails);
 	}
 

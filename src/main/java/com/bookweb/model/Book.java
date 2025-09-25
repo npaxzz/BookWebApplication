@@ -11,9 +11,10 @@ public class Book extends Item {
 
 	public Book() {
 		super();
+		this.setType(ItemType.BOOK);
 	}
 
 	public Book(String title, String creator, String description, Set<Category> categories) {
-		super(title, creator, description, categories);
+		super(ItemType.BOOK, title, creator, description, categories);
 	}
 }

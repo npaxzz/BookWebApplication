@@ -1,34 +1,19 @@
-package com.bookweb.model;
+package com.bookweb.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
-@Entity
-public class Review {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ReviewDTO {
 	private Long id;
-
 	private String reviewerName;
 	private int rating;
 	private String comment;
 
-	@ManyToOne
-	@JoinColumn(name = "item_id", nullable = false)
-	private Item item;
-
-	public Review() {
+	public ReviewDTO() {
 	}
 
-	public Review(String reviewerName, int rating, String comment, Item item) {
+	public ReviewDTO(Long id, String reviewerName, int rating, String comment) {
+		this.id = id;
 		this.reviewerName = reviewerName;
 		this.rating = rating;
 		this.comment = comment;
-		this.item = item;
 	}
 
 	// getters & setters
@@ -62,14 +47,6 @@ public class Review {
 
 	public void setComment(String comment) {
 		this.comment = comment;
-	}
-
-	public Item getItem() {
-		return item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
 	}
 
 }

@@ -12,10 +12,12 @@ public class Cartoon extends Item {
 	private String studio;
 
 	public Cartoon() {
+		super();
+		this.setType(ItemType.CARTOON);
 	}
 
 	public Cartoon(String title, String creator, String description, Set<Category> categories, String studio) {
-		super(title, creator, description, categories);
+		super(ItemType.CARTOON, title, creator, description, categories);
 		this.studio = studio;
 	}
 

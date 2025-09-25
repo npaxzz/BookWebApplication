@@ -1,50 +1,67 @@
-CREATE DATABASE IF NOT EXISTS bookdb;
-USE bookdb;
+-- ใช้ database ถ้ายังไม่มี
+CREATE DATABASE IF NOT EXISTS itemdb;
+USE itemdb;
 
--- insert categories
+-- ====== CATEGORY ======
 INSERT INTO category (id, name) VALUES
 (1, 'Programming'),
 (2, 'Fantasy'),
-(3, 'Psychology'),
-(4, 'Classic'),
-(5, 'Biography'),
-(6, 'Horror'),
-(7, 'Romance'),
-(8, 'History'),
-(9, 'Self-Help');
+(3, 'Science Fiction'),
+(4, 'Psychology'),
+(5, 'Classic'),
+(6, 'Biography'),
+(7, 'Horror'),
+(8, 'Romance'),
+(9, 'History'),
+(10, 'Self-Help'),
+(11, 'Action'),
+(12, 'Animation'),
+(13, 'Adventure');
 
--- insert books
-INSERT INTO book (id, title, author, description) VALUES
-(1, 'Clean Code', 'Robert C. Martin', 'A book about writing clean code'),
-(2, 'The Pragmatic Programmer', 'Andrew Hunt', 'A classic programming book'),
-(3, 'Harry Potter', 'J.K. Rowling', 'A fantasy book'),
-(4, 'Thinking, Fast and Slow', 'Daniel Kahneman', 'Psychology book'),
-(5, 'To Kill a Mockingbird', 'Harper Lee', 'Classic novel'),
-(6, 'Lord of the Rings', 'J.R.R. Tolkien', 'Fantasy novel'),
-(7, 'The Hobbit', 'J.R.R. Tolkien', 'Fantasy novel'),
-(8, '1984', 'George Orwell', 'Classic dystopian novel'),
-(9, 'The Diary of a Young Girl', 'Anne Frank', 'Biography'),
-(10, 'Dracula', 'Bram Stoker', 'Horror novel'),
-(11, 'Pride and Prejudice', 'Jane Austen', 'Romance novel'),
-(12, 'Sapiens', 'Yuval Noah Harari', 'History book'),
-(13, '7 Habits', 'Stephen Covey', 'Self-Help book'),
-(14, 'Brave New World', 'Aldous Huxley', 'Classic dystopian novel');
+-- ====== ITEM ======
+-- Books
+INSERT INTO item (id, dtype, type, title, creator, description) VALUES
+(1, 'BOOK', 'BOOK', 'Clean Code', 'Robert C. Martin', 'A book about writing clean code'),
+(2, 'BOOK', 'BOOK', 'The Pragmatic Programmer', 'Andrew Hunt', 'Programming best practices'),
+(3, 'BOOK', 'BOOK', 'Harry Potter', 'J.K. Rowling', 'Wizard adventure');
 
--- insert book_category
-INSERT INTO book_category (book_id, category_id) VALUES
-(1, 1),  -- Clean Code -> Programming
-(2, 1),  -- The Pragmatic Programmer -> Programming
-(3, 2),  -- Harry Potter -> Fantasy
-(4, 3),  -- Thinking, Fast and Slow -> Psychology
-(5, 4),  -- To Kill a Mockingbird -> Classic
-(6, 2),  -- Lord of the Rings -> Fantasy
-(6, 4),  -- Lord of the Rings -> Classic
-(7, 2),  -- The Hobbit -> Fantasy
-(8, 4),  -- 1984 -> Classic
-(9, 5),  -- The Diary of a Young Girl -> Biography
-(10, 6), -- Dracula -> Horror
-(11, 7), -- Pride and Prejudice -> Romance
-(12, 8), -- Sapiens -> History
-(13, 9), -- 7 Habits -> Self-Help
-(14, 4), -- Brave New World -> Classic
-(14, 2); -- Brave New World -> Fantasy
+-- Movies
+INSERT INTO item (id, dtype, type, title, creator, description) VALUES
+(4, 'MOVIE', 'MOVIE', 'Inception', 'Christopher Nolan', 'Mind-bending thriller'),
+(5, 'MOVIE', 'MOVIE', 'The Matrix', 'Lana Wachowski', 'Sci-fi action movie');
+
+-- Cartoons
+INSERT INTO item (id, dtype, type, title, creator, description, studio) VALUES
+(6, 'CARTOON', 'CARTOON', 'Tom and Jerry', 'William Hanna', 'Classic cartoon', 'Hanna-Barbera'),
+(7, 'CARTOON', 'CARTOON', 'SpongeBob SquarePants', 'Stephen Hillenburg', 'Funny underwater cartoon', 'Nickelodeon');
+
+-- Games
+INSERT INTO item (id, dtype, type, title, creator, description, price) VALUES
+(8, 'GAME', 'GAME', 'The Legend of Zelda', 'Nintendo', 'Adventure game', 60),
+(9, 'GAME', 'GAME', 'Minecraft', 'Mojang', 'Sandbox building game', 30);
+
+
+-- ====== ITEM_CATEGORIES (many-to-many) ======
+INSERT INTO item_categories (item_id, category_id) VALUES
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 11),
+(5, 11),
+(6, 12),
+(7, 12),
+(8, 13),
+(9, 13);
+
+-- ====== REVIEW ======
+-- id, reviewer_name, rating, comment, item_id
+INSERT INTO review (id, reviewer_name, rating, comment, item_id) VALUES
+(1, 'Alice', 5, 'Excellent coding book', 1),
+(2, 'Bob', 4, 'Very practical', 2),
+(3, 'Charlie', 5, 'Magical story!', 3),
+(4, 'Dave', 5, 'Amazing movie!', 4),
+(5, 'Eve', 4, 'Classic sci-fi', 5),
+(6, 'Frank', 5, 'Funny cartoon', 6),
+(7, 'Grace', 4, 'My kids love it', 7),
+(8, 'Heidi', 5, 'Epic adventure game', 8),
+(9, 'Ivan', 4, 'Addictive sandbox', 9)

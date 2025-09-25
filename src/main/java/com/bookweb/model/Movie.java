@@ -10,9 +10,11 @@ import jakarta.persistence.Entity;
 public class Movie extends Item {
 
 	public Movie() {
+		super();
+		this.setType(ItemType.MOVIE);
 	}
 
-	public Movie(String title, String creator, String description, Set<Category> categories) {
-		super(title, creator, description, categories);
+	public Movie(ItemType type, String title, String creator, String description, Set<Category> categories) {
+		super(ItemType.MOVIE, title, creator, description, categories);
 	}
 }

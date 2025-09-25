@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookweb.dto.CategoryDTO;
 import com.bookweb.model.Category;
 import com.bookweb.service.CategoryService;
 
@@ -24,24 +25,26 @@ public class CategoryController {
 		this.categoryService = categoryService;
 	}
 
+	// http://localhost:8085/categories
 	@GetMapping
-	public List<Category> getAllCategories() {
+	public List<CategoryDTO> getAllCategories() {
 		return categoryService.getAllCategories();
 	}
 
+	// http://localhost:8085/categories/11
 	@GetMapping("/{id}")
-	public Category getCategoryById(@PathVariable Long id) {
+	public CategoryDTO getCategoryById(@PathVariable Long id) {
 		return categoryService.getCategoryById(id);
 	}
 
 	@PostMapping
-	public Category createCategory(@RequestBody Category category) {
+	public CategoryDTO createCategory(@RequestBody Category category) {
 		return categoryService.createCategory(category);
 	}
 
 	@PutMapping("/{id}")
-	public Category updateCategory(@PathVariable Long id, @RequestBody Category categoryDetails) {
-		return categoryService.updateCategory(id, categoryDetails);
+	public CategoryDTO updateCategory(@PathVariable Long id, @RequestBody Category category) {
+		return categoryService.updateCategory(id, category);
 	}
 
 	@DeleteMapping("/{id}")

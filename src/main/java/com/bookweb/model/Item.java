@@ -45,7 +45,8 @@ public class Item {
 	public Item() {
 	}
 
-	public Item(String title, String creator, String description, Set<Category> categories) {
+	public Item(ItemType type, String title, String creator, String description, Set<Category> categories) {
+		this.type = type;
 		this.title = title;
 		this.creator = creator;
 		this.description = description;

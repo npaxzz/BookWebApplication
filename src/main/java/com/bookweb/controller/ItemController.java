@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookweb.dto.ItemDTO;
 import com.bookweb.model.Item;
-import com.bookweb.model.ItemType;
 import com.bookweb.service.ItemService;
 
 @RestController
@@ -26,29 +25,25 @@ public class ItemController {
 		this.itemService = itemService;
 	}
 
+	// http://localhost:8085/items
 	@GetMapping
-	public List<Item> getAllItems() {
+	public List<ItemDTO> getAllItems() {
 		return itemService.getAllItems();
 	}
 
+	// http://localhost:8085/items/6
 	@GetMapping("/{id}")
-	public Item getItemById(@PathVariable Long id) {
+	public ItemDTO getItem(@PathVariable Long id) {
 		return itemService.getItemById(id);
 	}
 
-	@GetMapping("/search")
-	public List<Item> searchItems(@RequestParam(required = false) String title,
-			@RequestParam(required = false) String creator, @RequestParam(required = false) ItemType type) {
-		return itemService.searchItems(title, creator, type);
-	}
-
 	@PostMapping
-	public Item addItem(@RequestBody Item item) {
-		return itemService.saveItem(item);
+	public ItemDTO createItem(@RequestBody Item item) {
+		return itemService.createItem(item);
 	}
 
 	@PutMapping("/{id}")
-	public Item updateItem(@PathVariable Long id, @RequestBody Item updatedItem) {
+	public ItemDTO updateItem(@PathVariable Long id, @RequestBody Item updatedItem) {
 		return itemService.updateItem(id, updatedItem);
 	}
 

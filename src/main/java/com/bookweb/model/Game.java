@@ -12,10 +12,12 @@ public class Game extends Item {
 	private int price;
 
 	public Game() {
+		super();
+		this.setType(ItemType.GAME);
 	}
 
-	public Game(String title, String creator, String description, Set<Category> categories, int price) {
-		super(title, creator, description, categories);
+	public Game(ItemType type, String title, String creator, String description, Set<Category> categories, int price) {
+		super(ItemType.GAME, title, creator, description, categories);
 		this.price = price;
 	}
 
