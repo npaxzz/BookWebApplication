@@ -22,4 +22,12 @@ public class CartoonController {
         model.addAttribute("cartoons", cartoons);
         return "cartoons"; // cartoons.html
     }
+//แสดงรายละเอียด ( ถ้าใช้ ไม่ใช้ก็ได้มั้ง)
+    @GetMapping("/cartoons/{id}")
+public String getCartoonById(@PathVariable Long id, Model model) {
+    Cartoon cartoon = cartoonRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid cartoon Id:" + id));
+    model.addAttribute("cartoon", cartoon);
+    return "cartoon-detail"; // cartoon-detail.html (ถ้าใช้)
+}
 }
