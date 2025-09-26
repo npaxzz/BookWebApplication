@@ -1,10 +1,12 @@
-<nav>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cartoons</title>
+</head>
+<body>
+    <h1>Cartoon / Anime List</h1>
     <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/books">Book</a></li>
-        <li><a href="/movies">Movie/Series</a></li>
-        <li><a href="/cartoons">Cartoon/Anime</a></li> <!-- ลิงก์ไปยัง Cartoon -->
-        <li><a href="/games">Game</a></li>
-        <li><a href="/categories">Category</a></li>
+        <li th:each="cartoon : ${cartoons}" th:text="${cartoon.title}"></li>
     </ul>
-</nav>
+</body>
+</html>
