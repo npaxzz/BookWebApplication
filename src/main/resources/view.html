@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Category Details</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>Category Details</h1>
+
+<div>
+    <p><strong>ID:</strong> <span th:text="${category.id}"></span></p>
+    <p><strong>Name:</strong> <span th:text="${category.name}"></span></p>
+    <p><strong>Description:</strong> <span th:text="${category.description}"></span></p>
+    <p><strong>Active:</strong> <span th:text="${category.isActive} ? 'Yes' : 'No'"></span></p>
+    <p><strong>Created At:</strong> <span th:text="${#temporals.format(category.createdAt, 'yyyy-MM-dd HH:mm')}"></span></p>
+    <p><strong>Updated At:</strong> <span th:text="${#temporals.format(category.updatedAt, 'yyyy-MM-dd HH:mm')}"></span></p>
+</div>
+
+<a th:href="@{'/categories/' + ${category.id} + '/edit'}">Edit</a> |
+<a th:href="@{/categories}">Back to List</a>
+
+<form th:action="@{'/categories/' + ${category.id} + '/force-delete'}"
+      method="post" style="margin-top: 20px;"
+      onsubmit="return confirm('Force delete this category?');">
+    <button type="submit">Force Delete</button>
+</form>
+</body>
+</html>

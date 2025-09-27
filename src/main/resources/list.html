@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Categories</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Category List</h1>
+
+
+<div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+<a th:href="@{/categories/new}">+ New Category</a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Active</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cat : ${categories}">
+        <td th:text="${cat.id}"></td>
+        <td>
+            <a th:href="@{'/categories/' + ${cat.id}}" th:text="${cat.name}"></a>
+        </td>
+        <td th:text="${cat.description}"></td>
+        <td th:text="${cat.isActive} ? 'Yes' : 'No'"></td>
+        <td>
+            <a th:href="@{'/categories/' + ${cat.id} + '/edit'}">Edit</a> |
+            <form th:action="@{'/categories/' + ${cat.id} + '/delete'}"
+                  method="post" style="display:inline"
+                  onsubmit="return confirm('Delete this category?');">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
