@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Games</title>
+</head>
+<body>
+    <h1>Game List</h1>
+
+    <ul>
+        <!-- วนลูปแสดงรายชื่อเกมทั้งหมด -->
+        <li th:each="game : ${games}">
+            <!-- แสดงชื่อเกม -->
+            <a th:href="@{'/games/' + ${game.id}}" th:text="${game.title}">Game Title</a>
+        </li>
+    </ul>
+
+</body>
+</html>
