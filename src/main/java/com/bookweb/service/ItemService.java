@@ -32,7 +32,7 @@ public class ItemService {
 		String typeName = item.getType() != null ? item.getType().name() : "UNKNOWN";
 
 		return new ItemDTO(item.getId(), item.getTitle(), item.getCreator(), item.getDescription(), typeName,
-				categoryNames, reviewDTOs);
+				categoryNames, reviewDTOs, item.getImageUrl());
 	}
 
 	public List<ItemDTO> getAllItems() {
@@ -59,6 +59,7 @@ public class ItemService {
 		existing.setCreator(updatedItem.getCreator());
 		existing.setDescription(updatedItem.getDescription());
 		existing.setType(updatedItem.getType());
+		existing.setImageUrl(updatedItem.getImageUrl());
 
 		Set<Category> categories = updatedItem.getCategories().stream().map(c -> categoryRepository.findById(c.getId())
 				.orElseThrow(() -> new RuntimeException("Category not found"))).collect(Collectors.toSet());

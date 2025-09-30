@@ -10,12 +10,13 @@ public class ItemDTO {
 	private String type; // BOOK, MOVIE, CARTOON, GAME
 	private Set<String> categories;
 	private Set<ReviewDTO> reviews;
+	private String imageUrl;
 
 	public ItemDTO() {
 	}
 
 	public ItemDTO(Long id, String title, String creator, String description, String type, Set<String> categories,
-			Set<ReviewDTO> reviews) {
+			Set<ReviewDTO> reviews, String imageUrl) {
 		this.id = id;
 		this.title = title;
 		this.creator = creator;
@@ -23,6 +24,7 @@ public class ItemDTO {
 		this.type = type;
 		this.categories = categories;
 		this.reviews = reviews;
+		this.imageUrl = imageUrl;
 	}
 
 	// ----- Getter/Setter -----
@@ -82,4 +84,11 @@ public class ItemDTO {
 		this.reviews = reviews;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 }

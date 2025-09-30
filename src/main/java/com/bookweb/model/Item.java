@@ -35,6 +35,8 @@ public class Item {
 	@Enumerated(EnumType.STRING)
 	private ItemType type; // BOOK, MOVIE, CARTOON, ..
 
+	private String imageUrl; // เพิ่มสำหรับเก็บ path หรือ URL ของไฟล์
+
 	@ManyToMany
 	@JoinTable(name = "item_categories", joinColumns = @JoinColumn(name = "item_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
@@ -108,5 +110,13 @@ public class Item {
 
 	public void setReviews(Set<Review> reviews) {
 		this.reviews = reviews;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }
