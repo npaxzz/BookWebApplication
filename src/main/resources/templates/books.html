@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ReviewVerse</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        background: linear-gradient(#ffd5df);
+      }
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        padding: 23px 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        background: linear-gradient(#ffd5df);
+      }
+      header .Menu {
+        color: #e23485;
+        font-weight: 800;
+        text-decoration: none;
+        font-size: 2.6rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      header ul li a {
+        color: #e23485;
+        font-weight: 800;
+        font-size: 1.25rem;
+        text-decoration: none;
+        padding: 6px 10px;
+        border-radius: 50px;
+      }
+      header ul li a:hover,
+      header ul li a.active {
+        background: #fff;
+        color: #e23485;
+      }
+      section::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 20%;
+        background: linear-gradient(to top, #ffd5df, transparent);
+        z-index: 3;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="#" class="Menu">ReviewVerse</a>
+      <ul>
+        <li><a href="index.html" class="Home">Home</a></li>
+        <li><a href="book.html" class="active">Book</a></li>
+        <li><a href="Movie.html" class="Movie">Movie/Series</a></li>
+        <li><a href="Cartoon.html" class="Cartoon">Cartoon/Anime</a></li>
+        <li><a href="Game.html" class="Game">Game</a></li>
+        <li><a href="Category.html" class="Category">Category</a></li>
+      </ul>
+    </header>
+    <section>
+      <img src="book.jpg" />
+    </section>
+      <h2>Books</h2>
+	  <div class="item-list">
+	    <ul>
+	      <!-- Loop รายการ Book จาก Model items -->
+	      <li th:each="book : ${items}">
+	        <div class="item">
+	          <!-- ลิงก์ไปหน้า detail -->
+	          <a th:href="@{/items/{id}(id=${book.id})}">
+	            <img th:src="${book.imageUrl}" alt="Book Cover" style="width:120px;height:auto;"/>
+	            <h3 th:text="${book.title}">Book Title</h3>
+	          </a>
+	          <p>Author: <span th:text="${book.creator}">Author Name</span></p>
+	          <p th:text="${book.description}">Short description here...</p>
+	        </div>
+	      </li>
+	    </ul>
+	  </div>
+	</section>
+  </body>
+</html>
