@@ -20,26 +20,30 @@ INSERT INTO category (id, name) VALUES
 
 -- ====== ITEM ======
 -- Books
-INSERT INTO item (id, dtype, type, title, creator, description) VALUES
-(1, 'BOOK', 'BOOK', 'Clean Code', 'Robert C. Martin', 'A book about writing clean code'),
-(2, 'BOOK', 'BOOK', 'The Pragmatic Programmer', 'Andrew Hunt', 'Programming best practices'),
-(3, 'BOOK', 'BOOK', 'Harry Potter', 'J.K. Rowling', 'Wizard adventure');
+INSERT INTO item (id, dtype, type, title, creator, description, image_url) VALUES
+(1, 'BOOK', 'BOOK', 'Clean Code', 'Robert C. Martin', 'A book about writing clean code',
+ 'https://m.media-amazon.com/images/I/41xShlnTZTL._SX374_BO1,204,203,200_.jpg'),
+(2, 'BOOK', 'BOOK', 'The Pragmatic Programmer', 'Andrew Hunt', 'Programming best practices',
+ 'https://m.media-amazon.com/images/I/41as+WafrFL._SX396_BO1,204,203,200_.jpg'),
+(3, 'BOOK', 'BOOK', 'Harry Potter', 'J.K. Rowling', 'Wizard adventure',
+ 'https://m.media-amazon.com/images/I/81YOuOGFCJL.jpg');
 
 -- Movies
-INSERT INTO item (id, dtype, type, title, creator, description) VALUES
-(4, 'MOVIE', 'MOVIE', 'Inception', 'Christopher Nolan', 'Mind-bending thriller'),
-(5, 'MOVIE', 'MOVIE', 'The Matrix', 'Lana Wachowski', 'Sci-fi action movie');
+INSERT INTO item (id, dtype, type, title, creator, description, image_url) VALUES
+(4, 'MOVIE', 'MOVIE', 'Inception', 'Christopher Nolan', 'Mind-bending thriller',
+ 'https://m.media-amazon.com/images/I/91pR9wKJ3zL._AC_SY679_.jpg'),
+(5, 'MOVIE', 'MOVIE', 'The Matrix', 'Lana Wachowski', 'Sci-fi action movie',
+ 'https://m.media-amazon.com/images/I/51EG732BV3L.jpg');
 
 -- Cartoons
-INSERT INTO item (id, dtype, type, title, creator, description, studio) VALUES
-(6, 'CARTOON', 'CARTOON', 'Tom and Jerry', 'William Hanna', 'Classic cartoon', 'Hanna-Barbera'),
-(7, 'CARTOON', 'CARTOON', 'SpongeBob SquarePants', 'Stephen Hillenburg', 'Funny underwater cartoon', 'Nickelodeon');
+INSERT INTO item (id, dtype, type, title, creator, description, studio, image_url) VALUES
+(6, 'CARTOON', 'CARTOON', 'Tom and Jerry', 'William Hanna', 'Classic cartoon', 'Hanna-Barbera', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8IfDoflVbvIAC1vSqzNY7OFBWhkKXdSHSyw&s'),
+(7, 'CARTOON', 'CARTOON', 'SpongeBob SquarePants', 'Stephen Hillenburg', 'Funny underwater cartoon', 'Nickelodeon', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4P4cZGOpN_qDtf_Xzr9pFqXHtyuxlzmcnhQ&s');
 
 -- Games
-INSERT INTO item (id, dtype, type, title, creator, description, price) VALUES
-(8, 'GAME', 'GAME', 'The Legend of Zelda', 'Nintendo', 'Adventure game', 60),
-(9, 'GAME', 'GAME', 'Minecraft', 'Mojang', 'Sandbox building game', 30);
-
+INSERT INTO item (id, dtype, type, title, creator, description, price, image_url) VALUES
+(8, 'GAME', 'GAME', 'The Legend of Zelda', 'Nintendo', 'Adventure game', 60, 'https://upload.wikimedia.org/wikipedia/en/c/c6/The_Legend_of_Zelda_Breath_of_the_Wild.jpg'),
+(9, 'GAME', 'GAME', 'Minecraft', 'Mojang', 'Sandbox building game', 30, 'https://image.api.playstation.com/vulcan/ap/rnd/202407/0401/670c294ded3baf4fa11068db2ec6758c63f7daeb266a35a1.png');
 
 -- ====== ITEM_CATEGORIES (many-to-many) ======
 INSERT INTO item_categories (item_id, category_id) VALUES
