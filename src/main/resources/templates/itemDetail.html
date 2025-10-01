@@ -139,7 +139,6 @@
     <header>
     		<a class="Menu">ReviewVerse</a>
 	</header>
-
 <div class="main-content">
     <div class="item-detail-container">
         <div class="item-detail-image">
@@ -167,9 +166,14 @@
                 </div>
             </div>
 
-            <a th:href="@{/items/book}" class="back-button">Back to Book List</a>
+            <!-- ปุ่ม Back แบบ dynamic ตาม type ของ item -->
+            <a th:href="@{'/items/' + ${item.type.toLowerCase()}}" class="back-button">
+                Back to <span th:text="${item.type}">Type</span> List
+            </a>
+            
         </div>
     </div>
 </div>
+
 </body>
 </html>

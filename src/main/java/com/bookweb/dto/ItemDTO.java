@@ -9,6 +9,7 @@ public class ItemDTO {
 	private String description;
 	private String type; // BOOK, MOVIE, CARTOON, GAME
 	private Set<String> categories;
+	private Set<Long> categoryId;
 	private Set<ReviewDTO> reviews;
 	private String imageUrl = "/img/placeholder.png";
 
@@ -76,6 +77,14 @@ public class ItemDTO {
 		this.categories = categories;
 	}
 
+	public Set<Long> getCategoryID() {
+		return categoryId;
+	}
+
+	public void setCategoryID(Set<Long> categoryId) {
+		this.categoryId = categoryId;
+	}
+
 	public Set<ReviewDTO> getReviews() {
 		return reviews;
 	}
@@ -91,4 +100,5 @@ public class ItemDTO {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+
 }

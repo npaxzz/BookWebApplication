@@ -76,4 +76,5 @@ public class ItemWebController {
 		model.addAttribute("item", item);
 		return "itemDetail";
 	}
+
 }
