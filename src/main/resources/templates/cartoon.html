@@ -2,11 +2,10 @@
 <html>
   <head>
     <title>ReviewVerse</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css" />
     <style>
       body {
-        min-height: 100vh;
-        background: linear-gradient(#6235aa, #7597de);
+        background: linear-gradient(#ddfdff);
       }
       header {
         position: fixed;
@@ -19,10 +18,10 @@
         justify-content: space-between;
         align-items: center;
         z-index: 10;
-        background: linear-gradient(#e5d0ff);
+        background: linear-gradient(#ddfdff);
       }
       header .Menu {
-        color: #561eb2;
+        color: #39caf7;
         font-weight: 800;
         text-decoration: none;
         font-size: 2.6rem;
@@ -30,7 +29,7 @@
         letter-spacing: 1px;
       }
       header ul li a {
-        color: #401c7b;
+        color: #39caf7;
         font-weight: 800;
         font-size: 1.25rem;
         text-decoration: none;
@@ -41,42 +40,55 @@
       header ul li a:hover,
       header ul li a.active {
         background: #fff;
-        color: #2b1055;
+        color: #39caf7;
       }
+      
       section::before {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
+        bottom: 0;
         width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.15);
-        z-index: 0;
+        height: 20%;
+        background: linear-gradient(to top, #ddfdff, transparent);
+        z-index: 3;
       }
+      
+      .section-title {
+	    color: #39caf7;             
+	    border-bottom: 2px solid #39caf7;
+	}
     </style>
   </head>
   <body>
     <header>
-      <a href="/" class="Menu">ReviewVerse</a>
+      <a href="#" class="Menu">ReviewVerse</a>
       <ul>
-      	<li><a href="/" class="active">Home</a></li>
+        <li><a href="/" class="Home">Home</a></li>
         <li><a href="/items/book" class="Book">Book</a></li>
 		<li><a href="/items/movie" class="Movie">Movie/Series</a></li>
-		<li><a href="/items/cartoon" class="Cartoon">Cartoon/Anime</a></li>
+		<li><a href="/items/cartoon" class="active">Cartoon/Anime</a></li>
 		<li><a href="/items/game" class="Game">Game</a></li>
 		<li><a href="/items/category" class="Category">Category</a></li>
       </ul>
     </header>
     <section>
-      <img
-        src="/img/Tulip Wallpapers.png"
-        id="Main_Wallpapers"
-      />
-      <div class="welcome-box"> 
-      <h2 class="welcome-text">Welcome</h2> 
-	      <p class="sub-text"> All the worlds you love, all the reviews you need </p> 
-	      <p class="sub-text">Every story has a voice. Hear it here</p> 
-      </div>
+      <img src="/img/cartoon.jpg" />
     </section>
+    <div class="section-header">
+		<h2 class="section-title">Cartoon List</h2>
+	</div>
+	   <div th:if="${#lists.isEmpty(items)}">
+		    <p>No items found.</p>
+		</div>
+		<div th:unless="${#lists.isEmpty(items)}">
+		    <div class="item-list">
+		        <div th:each="item : ${items}" class="item-card">
+		            <img th:src="${item.imageUrl}" alt="cover" width="150"/>
+		            <h3 th:text="${item.title}">Title</h3>
+		            <p th:text="${item.creator}">Creator</p>
+		            <a th:href="@{'/items/' + ${item.id}}" class="detail-link">View Details</a>
+		        </div>
+		    </div>
+		</div>
   </body>
 </html>

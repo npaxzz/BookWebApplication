@@ -10,7 +10,7 @@ public class ItemDTO {
 	private String type; // BOOK, MOVIE, CARTOON, GAME
 	private Set<String> categories;
 	private Set<ReviewDTO> reviews;
-	private String imageUrl;
+	private String imageUrl = "/img/placeholder.png";
 
 	public ItemDTO() {
 	}

@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>ReviewVerse</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
     <style>
       body {
         background: linear-gradient(#bcf1ff);
@@ -51,22 +51,43 @@
         background: linear-gradient(to top, #bcf1ff, transparent);
         z-index: 3;
       }
+      
+      .section-title {
+	    color: #1e84ea;             
+	    border-bottom: 2px solid #1e84ea;
+	}
     </style>
   </head>
   <body>
     <header>
       <a href="#" class="Menu">ReviewVerse</a>
       <ul>
-        <li><a href="index.html" class="Home">Home</a></li>
-        <li><a href="book.html" class="Book">Book</a></li>
-        <li><a href="Movie.html" class="Movie">Movie/Series</a></li>
-        <li><a href="Cartoon.html" class="Cartoon">Cartoon/Anime</a></li>
-        <li><a href="Game.html" class="active">Game</a></li>
-        <li><a href="Category.html" class="Category">Category</a></li>
+        <li><a href="/" class="Home">Home</a></li>
+        <li><a href="/items/book" class="Book">Book</a></li>
+		<li><a href="/items/movie" class="Movie">Movie/Series</a></li>
+		<li><a href="/items/cartoon" class="Cartoon">Cartoon/Anime</a></li>
+		<li><a href="/items/game" class="active">Game</a></li>
+		<li><a href="/items/category" class="Category">Category</a></li>
       </ul>
     </header>
     <section>
-      <img src="game.png" />
+      <img src="/img/game.png" />
     </section>
+    <div class="section-header">
+		<h2 class="section-title">Game List</h2>
+	</div>
+	   <div th:if="${#lists.isEmpty(items)}">
+		    <p>No items found.</p>
+		</div>
+		<div th:unless="${#lists.isEmpty(items)}">
+		    <div class="item-list">
+		        <div th:each="item : ${items}" class="item-card">
+		            <img th:src="${item.imageUrl}" alt="cover" width="150"/>
+		            <h3 th:text="${item.title}">Title</h3>
+		            <p th:text="${item.creator}">Creator</p>
+		            <a th:href="@{'/items/' + ${item.id}}" class="detail-link">View Details</a>
+		        </div>
+		    </div>
+		</div>
   </body>
 </html>

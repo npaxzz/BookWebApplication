@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>ReviewVerse</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
     <style>
       body {
         background: linear-gradient(#ffd5df);
@@ -50,40 +50,43 @@
         background: linear-gradient(to top, #ffd5df, transparent);
         z-index: 3;
       }
+      
+      .section-title {
+	    color: #e23485;             
+	    border-bottom: 2px solid #e23485;
+	}
     </style>
   </head>
   <body>
     <header>
       <a href="#" class="Menu">ReviewVerse</a>
       <ul>
-        <li><a href="index.html" class="Home">Home</a></li>
-        <li><a href="book.html" class="active">Book</a></li>
-        <li><a href="Movie.html" class="Movie">Movie/Series</a></li>
-        <li><a href="Cartoon.html" class="Cartoon">Cartoon/Anime</a></li>
-        <li><a href="Game.html" class="Game">Game</a></li>
-        <li><a href="Category.html" class="Category">Category</a></li>
+        <li><a href="/" class="Home">Home</a></li>
+        <li><a href="/items/book" class="active">Book</a></li>
+		<li><a href="/items/movie" class="Movie">Movie/Series</a></li>
+		<li><a href="/items/cartoon" class="Cartoon">Cartoon/Anime</a></li>
+		<li><a href="/items/game" class="Game">Game</a></li>
+		<li><a href="/items/category" class="Category">Category</a></li>
       </ul>
     </header>
     <section>
-      <img src="book.jpg" />
-    </section>
-      <h2>Books</h2>
-	  <div class="item-list">
-	    <ul>
-	      <!-- Loop รายการ Book จาก Model items -->
-	      <li th:each="book : ${items}">
-	        <div class="item">
-	          <!-- ลิงก์ไปหน้า detail -->
-	          <a th:href="@{/items/{id}(id=${book.id})}">
-	            <img th:src="${book.imageUrl}" alt="Book Cover" style="width:120px;height:auto;"/>
-	            <h3 th:text="${book.title}">Book Title</h3>
-	          </a>
-	          <p>Author: <span th:text="${book.creator}">Author Name</span></p>
-	          <p th:text="${book.description}">Short description here...</p>
-	        </div>
-	      </li>
-	    </ul>
-	  </div>
-	</section>
+      <img src="/img/book.jpg" />
+     </section>
+     <div class="section-header">
+		<h2 class="section-title">Book List</h2>
+	</div>
+	   <div th:if="${#lists.isEmpty(items)}">
+		    <p>No items found.</p>
+		</div>
+		<div th:unless="${#lists.isEmpty(items)}">
+		    <div class="item-list">
+		        <div th:each="item : ${items}" class="item-card">
+		            <img th:src="${item.imageUrl}" alt="cover" width="150"/>
+		            <h3 th:text="${item.title}">Title</h3>
+		            <p th:text="${item.creator}">Creator</p>
+		            <a th:href="@{'/items/' + ${item.id}}" class="detail-link">View Details</a>
+		        </div>
+		    </div>
+		</div>
   </body>
 </html>

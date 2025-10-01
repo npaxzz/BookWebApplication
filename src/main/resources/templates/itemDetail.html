@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${item.title}">Item Detail</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+		/* header */
+		header {
+			padding-top: 100px;
+		    display: flex;
+		    flex-direction: column;
+		    justify-content: center;
+		    align-items: center;
+		    text-align: center;
+		    color: white;
+		    padding: 20px 20px;
+		}
+		
+		header .Menu {
+			padding-top: 30px;
+		    font-size: 2.6rem;
+		    font-weight: 800;
+		    text-transform: uppercase;
+		    letter-spacing: 1px;
+		    margin-bottom: 10px;
+		    color: #561eb2;
+		    text-decoration: none;
+		}
+		
+		/* main content */
+		.main-content {
+		    padding: 0 20px;
+		    margin-top: 20px; /* header ปรับให้ไม่เยอะ */
+		    display: flex;
+		    justify-content: center;
+		}
+		
+		/* item detail container */
+		.item-detail-container {
+		    display: flex;
+		    flex-wrap: wrap;
+		    background: #fff;
+		    border-radius: 10px;
+		    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+		    padding: 20px;
+		    gap: 20px;
+		    max-width: 900px; /* กำหนดขนาดสูงสุด */
+		    width: 100%;
+		}
+		
+		/* image */
+		.item-detail-image {
+		    flex: 1 1 300px;
+		    max-width: 400px;
+		}
+		
+		.item-detail-image img {
+		    width: 100%;
+		    height: auto;
+		    border-radius: 10px;
+		}
+		
+		/* info */
+		.item-detail-info {
+		    flex: 2 1 400px;
+		    display: flex;
+		    flex-direction: column;
+		}
+		
+		.item-detail-info h1 {
+		    margin-top: 0;
+		    color: #561eb2;
+		}
+		
+		.item-detail-info p {
+		    margin: 5px 0;
+		    color: #555;
+		}
+		
+		.item-detail-info .categories {
+		    margin: 10px 0;
+		    font-style: italic;
+		    color: #333;
+		}
+		
+		.reviews {
+		    margin-top: 15px;
+		}
+		
+		.review-card {
+		    background: #f4f4f4;
+		    padding: 10px;
+		    margin-bottom: 10px;
+		    border-radius: 5px;
+		}
+		
+		.review-card h4 {
+		    margin: 0;
+		    font-size: 1rem;
+		    color: #401c7b;
+		}
+		
+		.review-card p {
+		    margin: 3px 0;
+		    font-size: 0.9rem;
+		    color: #555;
+		}
+		
+		.back-button {
+		    display: inline-block;
+		    margin-top: 20px;
+		    padding: 8px 16px;
+		    background: #561eb2;
+		    color: #fff;
+		    text-decoration: none;
+		    border-radius: 5px;
+		    font-weight: 600;
+		    width: max-content;
+		}
+		
+		.back-button:hover {
+		    background: #401c7b;
+		}
+		
+		@media (max-width: 768px) {
+		    .item-detail-container {
+		        flex-direction: column;
+		        align-items: center;
+		    }
+		
+		    .item-detail-info {
+		        width: 100%;
+		    }
+		}
+    </style>
+</head>
+<body>
+    <header>
+    		<a class="Menu">ReviewVerse</a>
+	</header>
+
+<div class="main-content">
+    <div class="item-detail-container">
+        <div class="item-detail-image">
+            <img th:src="${item.imageUrl != null ? item.imageUrl : '/img/placeholder.png'}" alt="cover">
+        </div>
+        <div class="item-detail-info">
+            <h1 th:text="${item.title}">Title</h1>
+            <p><strong>Creator:</strong> <span th:text="${item.creator}">Creator Name</span></p>
+            <p><strong>Type:</strong> <span th:text="${item.type}">BOOK</span></p>
+            <p class="categories"><strong>Categories:</strong> 
+                <span th:each="cat : ${item.categories}" th:text="${cat} + ' '"></span>
+            </p>
+            <p><strong>Description:</strong></p>
+            <p th:text="${item.description}">Description goes here...</p>
+
+            <div class="reviews">
+                <h3>Reviews</h3>
+                <div th:if="${#lists.isEmpty(item.reviews)}">
+                    <p>No reviews yet.</p>
+                </div>
+                <div th:each="review : ${item.reviews}" class="review-card">
+                    <h4 th:text="${review.reviewerName}">Reviewer Name</h4>
+                    <p><strong>Rating:</strong> <span th:text="${review.rating}">5</span>/5</p>
+                    <p th:text="${review.comment}">Comment goes here...</p>
+                </div>
+            </div>
+
+            <a th:href="@{/items/book}" class="back-button">Back to Book List</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

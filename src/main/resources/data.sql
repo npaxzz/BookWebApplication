@@ -2,6 +2,12 @@
 CREATE DATABASE IF NOT EXISTS itemdb;
 USE itemdb;
 
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM category;
+DELETE FROM item_categories;
+DELETE FROM review;
+DELETE FROM item;
+
 -- ====== CATEGORY ======
 INSERT INTO category (id, name) VALUES
 (1, 'Programming'),
@@ -20,7 +26,7 @@ INSERT INTO category (id, name) VALUES
 
 -- ====== ITEM ======
 -- Books
-INSERT INTO item (id, dtype, type, title, creator, description, image_url) VALUES
+INSERT INTO item (id, dtype, type, title, creator, description, imageUrl) VALUES
 (1, 'BOOK', 'BOOK', 'Clean Code', 'Robert C. Martin', 'A book about writing clean code',
  'https://m.media-amazon.com/images/I/41xShlnTZTL._SX374_BO1,204,203,200_.jpg'),
 (2, 'BOOK', 'BOOK', 'The Pragmatic Programmer', 'Andrew Hunt', 'Programming best practices',
@@ -29,19 +35,19 @@ INSERT INTO item (id, dtype, type, title, creator, description, image_url) VALUE
  'https://m.media-amazon.com/images/I/81YOuOGFCJL.jpg');
 
 -- Movies
-INSERT INTO item (id, dtype, type, title, creator, description, image_url) VALUES
+INSERT INTO item (id, dtype, type, title, creator, description, imageUrl) VALUES
 (4, 'MOVIE', 'MOVIE', 'Inception', 'Christopher Nolan', 'Mind-bending thriller',
  'https://m.media-amazon.com/images/I/91pR9wKJ3zL._AC_SY679_.jpg'),
 (5, 'MOVIE', 'MOVIE', 'The Matrix', 'Lana Wachowski', 'Sci-fi action movie',
  'https://m.media-amazon.com/images/I/51EG732BV3L.jpg');
 
 -- Cartoons
-INSERT INTO item (id, dtype, type, title, creator, description, studio, image_url) VALUES
+INSERT INTO item (id, dtype, type, title, creator, description, studio, imageUrl) VALUES
 (6, 'CARTOON', 'CARTOON', 'Tom and Jerry', 'William Hanna', 'Classic cartoon', 'Hanna-Barbera', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8IfDoflVbvIAC1vSqzNY7OFBWhkKXdSHSyw&s'),
 (7, 'CARTOON', 'CARTOON', 'SpongeBob SquarePants', 'Stephen Hillenburg', 'Funny underwater cartoon', 'Nickelodeon', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4P4cZGOpN_qDtf_Xzr9pFqXHtyuxlzmcnhQ&s');
 
 -- Games
-INSERT INTO item (id, dtype, type, title, creator, description, price, image_url) VALUES
+INSERT INTO item (id, dtype, type, title, creator, description, price, imageUrl) VALUES
 (8, 'GAME', 'GAME', 'The Legend of Zelda', 'Nintendo', 'Adventure game', 60, 'https://upload.wikimedia.org/wikipedia/en/c/c6/The_Legend_of_Zelda_Breath_of_the_Wild.jpg'),
 (9, 'GAME', 'GAME', 'Minecraft', 'Mojang', 'Sandbox building game', 30, 'https://image.api.playstation.com/vulcan/ap/rnd/202407/0401/670c294ded3baf4fa11068db2ec6758c63f7daeb266a35a1.png');
 
@@ -59,7 +65,7 @@ INSERT INTO item_categories (item_id, category_id) VALUES
 
 -- ====== REVIEW ======
 -- id, reviewer_name, rating, comment, item_id
-INSERT INTO review (id, reviewer_name, rating, comment, item_id) VALUES
+INSERT INTO review (id, reviewerName, rating, comment, item_id) VALUES
 (1, 'Alice', 5, 'Excellent coding book', 1),
 (2, 'Bob', 4, 'Very practical', 2),
 (3, 'Charlie', 5, 'Magical story!', 3),

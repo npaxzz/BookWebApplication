@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.bookweb.dto.CategoryDTO;
 import com.bookweb.dto.ItemDTO;
 import com.bookweb.dto.ReviewDTO;
 import com.bookweb.model.Category;
@@ -13,7 +14,10 @@ import com.bookweb.model.Item;
 import com.bookweb.repository.CategoryRepository;
 import com.bookweb.repository.ItemRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class ItemService {
 
 	private final ItemRepository itemRepository;
@@ -26,13 +30,18 @@ public class ItemService {
 
 	public ItemDTO convertToDTO(Item item) {
 		Set<String> categoryNames = item.getCategories().stream().map(Category::getName).collect(Collectors.toSet());
+
 		Set<ReviewDTO> reviewDTOs = item.getReviews().stream()
 				.map(r -> new ReviewDTO(r.getId(), r.getReviewerName(), r.getRating(), r.getComment()))
 				.collect(Collectors.toSet());
+
 		String typeName = item.getType() != null ? item.getType().name() : "UNKNOWN";
 
+		// กำหนด imageUrl default หรือจาก database
+		String imageUrl = item.getImageUrl() != null ? item.getImageUrl() : "/img/placeholder.png";
+
 		return new ItemDTO(item.getId(), item.getTitle(), item.getCreator(), item.getDescription(), typeName,
-				categoryNames, reviewDTOs, item.getImageUrl());
+				categoryNames, reviewDTOs, imageUrl);
 	}
 
 	public List<ItemDTO> getAllItems() {
@@ -72,5 +81,17 @@ public class ItemService {
 		if (!itemRepository.existsById(id))
 			throw new RuntimeException("Item not found");
 		itemRepository.deleteById(id);
+	}
+
+	public List<CategoryDTO> getAllCategories() {
+		return categoryRepository.findAll().stream().map(c -> new CategoryDTO(c.getId(), c.getName()))
+				.collect(Collectors.toList());
+	}
+
+	public List<ItemDTO> getItemsByCategoryId(Long categoryId) {
+		Category category = categoryRepository.findById(categoryId)
+				.orElseThrow(() -> new RuntimeException("Category not found"));
+
+		return category.getItems().stream().map(this::convertToDTO).collect(Collectors.toList());
 	}
 }

@@ -16,7 +16,7 @@ import com.bookweb.model.Review;
 import com.bookweb.service.ReviewService;
 
 @RestController
-@RequestMapping("/reviews")
+@RequestMapping("/api/reviews")
 public class ReviewController {
 
 	private final ReviewService reviewService;
@@ -25,19 +25,19 @@ public class ReviewController {
 		this.reviewService = reviewService;
 	}
 
-	// http://localhost:8085/reviews
+	// http://localhost:8085/api/reviews
 	@GetMapping
 	public List<ReviewDTO> getAllReviews() {
 		return reviewService.getAllReviews();
 	}
 
-	// http://localhost:8085/reviews/6
+	// http://localhost:8085/api/reviews/6
 	@GetMapping("/{id}")
 	public ReviewDTO getReviewById(@PathVariable Long id) {
 		return reviewService.getReviewById(id);
 	}
 
-	// http://localhost:8085/reviews/item/5
+	// http://localhost:8085/api/reviews/item/5
 	@PostMapping("/item/{itemId}")
 	public ReviewDTO createReview(@PathVariable Long itemId, @RequestBody Review review) {
 		return reviewService.createReview(itemId, review);

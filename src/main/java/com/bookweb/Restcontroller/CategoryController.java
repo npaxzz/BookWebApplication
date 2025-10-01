@@ -16,7 +16,7 @@ import com.bookweb.model.Category;
 import com.bookweb.service.CategoryService;
 
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("/api/categories")
 public class CategoryController {
 
 	private final CategoryService categoryService;
@@ -25,13 +25,13 @@ public class CategoryController {
 		this.categoryService = categoryService;
 	}
 
-	// http://localhost:8085/categories
+	// http://localhost:8085/api/categories
 	@GetMapping
 	public List<CategoryDTO> getAllCategories() {
 		return categoryService.getAllCategories();
 	}
 
-	// http://localhost:8085/categories/11
+	// http://localhost:8085/api/categories/11
 	@GetMapping("/{id}")
 	public CategoryDTO getCategoryById(@PathVariable Long id) {
 		return categoryService.getCategoryById(id);

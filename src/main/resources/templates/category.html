@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ReviewVerse</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+      body {
+        background: linear-gradient(#fdfbd4);
+      }
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        padding: 23px 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+        background: linear-gradient(#fffcad);
+      }
+      header .Menu {
+        color: #ff991d;
+        font-weight: 800;
+        text-decoration: none;
+        font-size: 2.6rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      header ul li a {
+        color: #ff991d;
+        font-weight: 800;
+        font-size: 1.25rem;
+        text-decoration: none;
+        padding: 6px 10px;
+        border-radius: 50px;
+      }
+
+      header ul li a:hover,
+      header ul li a.active {
+        background: #fff;
+        color: #ff991d;
+      }
+      
+      .section-title {
+	    color: #ff991d;             
+	    border-bottom: 2px solid #ff991d;
+	}
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="#" class="Menu">ReviewVerse</a>
+      <ul>
+        <li><a href="/" class="Home">Home</a></li>
+        <li><a href="/items/book" class="Book">Book</a></li>
+		<li><a href="/items/movie" class="Movie">Movie/Series</a></li>
+		<li><a href="/items/cartoon" class="Cartoon">Cartoon/Anime</a></li>
+		<li><a href="/items/game" class="Game">Game</a></li>
+		<li><a href="/items/category" class="active">Category</a></li>
+      </ul>
+    </header>
+    <section>
+      <img src="/img/category.png" />
+    </section>
+    <div class="section-header">
+		<h2 class="section-title">Category List</h2>
+	</div>
+	<div class="main-content">
+		<div th:each="category : ${categories}" class="category-section">
+	    <h2 class="category-title" th:text="${category.name}">Category Name</h2>
+	
+	    <div th:if="${#lists.isEmpty(category.items)}">
+	        <p>No items in this category.</p>
+	    </div>
+	
+	    <div class="category-item-list" th:unless="${#lists.isEmpty(category.items)}">
+	        <div th:each="item : ${category.items}" class="item-card">
+	            <img th:src="${item.imageUrl != null ? item.imageUrl : '/img/placeholder.png'}" alt="cover">
+	            <h3 th:text="${item.title}">Title</h3>
+	            <p th:text="${item.creator}">Creator</p>
+	            <a th:href="@{'/items/' + ${item.id}}" class="detail-link">View Details</a>
+	        </div>
+	    </div>
+	</div>
+	</div>
+  </body>
+</html>

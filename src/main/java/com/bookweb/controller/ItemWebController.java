@@ -1,5 +1,6 @@
 package com.bookweb.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bookweb.dto.ItemDTO;
+import com.bookweb.model.Category;
+import com.bookweb.repository.CategoryRepository;
 import com.bookweb.service.ItemService;
 
 @Controller
@@ -17,57 +20,60 @@ import com.bookweb.service.ItemService;
 public class ItemWebController {
 
 	private final ItemService itemService;
+	private final CategoryRepository categoryRepository;
 
-	public ItemWebController(ItemService itemService) {
+	public ItemWebController(ItemService itemService, CategoryRepository categoryRepository) {
 		this.itemService = itemService;
+		this.categoryRepository = categoryRepository;
 	}
 
-	// แสดงรายการทั้งหมด (รวมทุกประเภท)
-	@GetMapping
-	public String allItems(Model model) {
-		List<ItemDTO> items = itemService.getAllItems();
-		model.addAttribute("items", items);
-		return "items"; // templates/items.html
+	private List<ItemDTO> safeList(List<ItemDTO> list) {
+		return list != null ? list : new ArrayList<>();
 	}
 
-	// แสดงรายการตามประเภท เช่น /items/books
-	@GetMapping("/books")
+	@GetMapping("/book")
 	public String allBooks(Model model) {
-		List<ItemDTO> books = itemService.getAllItems().stream().filter(i -> "BOOK".equals(i.getType()))
-				.collect(Collectors.toList());
+		List<ItemDTO> books = safeList(itemService.getAllItems().stream()
+				.filter(i -> "BOOK".equalsIgnoreCase(i.getType())).collect(Collectors.toList()));
 		model.addAttribute("items", books);
-		return "books"; // templates/books.html
+		return "book"; // templates/book.html
 	}
 
-	@GetMapping("/movies")
+	@GetMapping("/movie")
 	public String allMovies(Model model) {
-		List<ItemDTO> movies = itemService.getAllItems().stream().filter(i -> "MOVIE".equals(i.getType()))
-				.collect(Collectors.toList());
+		List<ItemDTO> movies = safeList(itemService.getAllItems().stream()
+				.filter(i -> "MOVIE".equalsIgnoreCase(i.getType())).collect(Collectors.toList()));
 		model.addAttribute("items", movies);
-		return "movies"; // templates/movies.html
+		return "movie"; // templates/movie.html
 	}
 
-	@GetMapping("/cartoons")
+	@GetMapping("/cartoon")
 	public String allCartoons(Model model) {
-		List<ItemDTO> cartoons = itemService.getAllItems().stream().filter(i -> "CARTOON".equals(i.getType()))
-				.collect(Collectors.toList());
+		List<ItemDTO> cartoons = safeList(itemService.getAllItems().stream()
+				.filter(i -> "CARTOON".equalsIgnoreCase(i.getType())).collect(Collectors.toList()));
 		model.addAttribute("items", cartoons);
-		return "cartoons"; // templates/cartoons.html
+		return "cartoon"; // templates/cartoon.html
 	}
 
-	@GetMapping("/games")
+	@GetMapping("/game")
 	public String allGames(Model model) {
-		List<ItemDTO> games = itemService.getAllItems().stream().filter(i -> "GAME".equals(i.getType()))
-				.collect(Collectors.toList());
+		List<ItemDTO> games = safeList(itemService.getAllItems().stream()
+				.filter(i -> "GAME".equalsIgnoreCase(i.getType())).collect(Collectors.toList()));
 		model.addAttribute("items", games);
-		return "games"; // templates/games.html
+		return "game"; // templates/game.html
 	}
 
-	// แสดงรายละเอียดของ item ตาม id
+	@GetMapping("/category")
+	public String allCategories(Model model) {
+		List<Category> categories = categoryRepository.findAll();
+		model.addAttribute("categories", categories);
+		return "category";
+	}
+
 	@GetMapping("/{id}")
 	public String itemDetail(@PathVariable Long id, Model model) {
 		ItemDTO item = itemService.getItemById(id);
 		model.addAttribute("item", item);
-		return "itemDetail"; // templates/itemDetail.html
+		return "itemDetail";
 	}
 }

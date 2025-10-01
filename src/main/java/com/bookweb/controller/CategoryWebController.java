@@ -22,7 +22,7 @@ public class CategoryWebController {
 	@GetMapping
 	public String allCategories(Model model) {
 		model.addAttribute("categories", categoryService.getAllCategories());
-		return "categories"; // templates/categories.html
+		return "category"; // templates/categories.html
 	}
 
 	// แสดงรายการ Item ตาม Category

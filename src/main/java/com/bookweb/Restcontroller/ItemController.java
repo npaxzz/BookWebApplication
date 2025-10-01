@@ -16,7 +16,7 @@ import com.bookweb.model.Item;
 import com.bookweb.service.ItemService;
 
 @RestController
-@RequestMapping("/items")
+@RequestMapping("/api/items")
 public class ItemController {
 
 	private final ItemService itemService;
@@ -25,13 +25,13 @@ public class ItemController {
 		this.itemService = itemService;
 	}
 
-	// http://localhost:8085/items
+	// http://localhost:8085/api/items
 	@GetMapping
 	public List<ItemDTO> getAllItems() {
 		return itemService.getAllItems();
 	}
 
-	// http://localhost:8085/items/6
+	// http://localhost:8085/api/items/6
 	@GetMapping("/{id}")
 	public ItemDTO getItem(@PathVariable Long id) {
 		return itemService.getItemById(id);
