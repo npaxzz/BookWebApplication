@@ -73,6 +73,11 @@ section img {
     display: inline-block;        /* ทำให้เส้นใต้พอดีกับข้อความ */
 }
 
+.category-section {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
 /* Category title */
 .category-title {
     font-size: 1.8rem;
