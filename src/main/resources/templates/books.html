@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Books</title>
+</head>
+<body>
+	<h1>Book List</h1>
+	
+	<ul>
+        <!-- วนลูปแสดงรายชื่อหนังสือทั้งหมด -->
+        <li th:each="book : ${books}">
+            <!-- แสดงชื่อหนังสือ -->
+            <a th:href="@{'/books/' + ${book.id}}" th:text="${book.title}">Book Title</a>
+        </li>
+    </ul>
+
+</body>
+</html>
