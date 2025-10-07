@@ -65,11 +65,25 @@
             .item-detail-container { flex-direction: column; align-items: center; }
             .item-detail-info { width: 100%; }
         }
+        h2 {
+        color: #561eb2;
+        font-weight: 800;
+        text-decoration: none;
+        font-size: 2.6rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-align: center;
+      }
+      .reviewVerse {
+  padding-top: 30px;
+}
+ 
     </style>
 </head>
 <body>
- <div th:replace="fragments/header :: header"></div>
-
+<div class="reviewVerse">
+<h2 th:href="@{/}">ReviewVerse</h2>
+</div>
 <div class="main-content">
     <div class="item-detail-container">
         <div class="item-detail-image">
@@ -123,7 +137,8 @@
 <!-- Inline JS with Thymeleaf -->
 <script th:inline="javascript">
     /* Username from Spring Security */
-    var username = /*[[${username != null ? "'" + username + "'" : 'null'}]]*/ null;
+	var username = /*[[${username != null ? "'" + username + "'" : null}]]*/ null;
+	console.log("USERNAME:", username);
 
     // Rating star selection
     let rating = 0;
@@ -148,6 +163,7 @@
     document.getElementById("submit-review")?.addEventListener("click", () => {
         if (!username) {
             alert("⚠️ Please login before submitting a review.");
+            window.location.href = "/login";
             return;
         }
 

@@ -1,6 +1,5 @@
 package com.bookweb.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bookweb.dto.ItemDTO;
 import com.bookweb.model.Category;
+import com.bookweb.model.User;
 import com.bookweb.repository.CategoryRepository;
 import com.bookweb.service.ItemService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/items")
@@ -72,17 +74,16 @@ public class ItemWebController {
 	}
 
 	@GetMapping("/{id}")
-	public String itemDetail(@PathVariable Long id, Model model, Principal principal) {
-	    ItemDTO item = itemService.getItemById(id);
-	    model.addAttribute("item", item);
+	public String itemDetail(@PathVariable Long id, Model model, HttpSession session) {
+		ItemDTO item = itemService.getItemById(id);
+		model.addAttribute("item", item);
 
-	    String username = principal != null ? principal.getName() : null;
-	    model.addAttribute("username", username);
+		// ดึงจาก session แทน Principal
+		User currentUser = (User) session.getAttribute("user");
+		String username = currentUser != null ? currentUser.getUsername() : null;
+		model.addAttribute("username", username);
 
-	    return "itemDetail";
+		return "itemDetail";
 	}
 
-
 }
-
-
