@@ -12,6 +12,9 @@ public class ItemDTO {
 	private Set<Long> categoryId;
 	private Set<ReviewDTO> reviews;
 	private String imageUrl = "/img/placeholder.png";
+	// fields เฉพาะ type
+	private Double price; // สำหรับ GAME
+	private String studio; // สำหรับ CARTOON
 
 	public ItemDTO() {
 	}
@@ -99,6 +102,22 @@ public class ItemDTO {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getStudio() {
+		return studio;
+	}
+
+	public void setStudio(String studio) {
+		this.studio = studio;
 	}
 
 }

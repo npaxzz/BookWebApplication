@@ -37,6 +37,10 @@ public class Item {
 
 	private String imageUrl; // เพิ่มสำหรับเก็บ path หรือ URL ของไฟล์
 
+	// fields เฉพาะ type
+	private Double price; // สำหรับ GAME
+	private String studio; // สำหรับ CARTOON
+
 	@ManyToMany
 	@JoinTable(name = "item_categories", joinColumns = @JoinColumn(name = "item_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
@@ -118,5 +122,21 @@ public class Item {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getStudio() {
+		return studio;
+	}
+
+	public void setStudio(String studio) {
+		this.studio = studio;
 	}
 }

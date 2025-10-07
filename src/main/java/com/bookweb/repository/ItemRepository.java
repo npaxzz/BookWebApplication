@@ -1,7 +1,10 @@
 package com.bookweb.repository;
 
-import com.bookweb.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
-public interface ItemRepository extends JpaRepository<Item, Long> {}
+import com.bookweb.model.Item;
+
+@Repository
+public interface ItemRepository extends JpaRepository<Item, Long> {
+}
