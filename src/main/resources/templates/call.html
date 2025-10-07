@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Call Room</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        background: linear-gradient(135deg, #e5d0ff, #d0f0ff); /* gradient คล้าย index */
+        color: #333;
+    }
+
+    h2 {
+        margin-top: 80px;
+        font-size: 2.5rem;
+        font-weight: 800;
+        text-align: center;
+        color: #561eb2; /* เหมือนสี header index */
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    }
+
+    .buttons {
+        margin: 30px 0;
+        display: flex;
+        gap: 20px;
+    }
+
+    button {
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        background: #561eb2; /* ปุ่มสีเดียวกับ index */
+        color: #fff;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    button:hover {
+        background: #401c7b; /* hover เหมือน index */
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    #peersContainer {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        width: 90%;
+        max-width: 800px;
+    }
+
+    audio {
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        h2 {
+            font-size: 2rem;
+        }
+
+        button {
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
+    }
+    
+    a.button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #561eb2;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+a.button:hover {
+    background: #401c7b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+    
+</style>
+</head>
+<body>
+    <h2>Group Call <span th:text="${itemId}"></span></h2>
+
+    <div class="buttons">
+        <button id="joinBtn">Join Call</button>
+        <button id="leaveBtn">Leave Call</button>
+        <a th:href="@{/}" class="button">Back To Home</a>
+    </div>
+
+    <div id="peersContainer"></div>
+
+    <script th:src="@{/js/call.js}"></script>
+    <script th:inline="javascript">
+        const roomId = /*[[${itemId}]]*/ 0;
+        const username = /*[[${username}]]*/ 'Guest';
+    </script>
+</body>
+</html>

@@ -53,6 +53,80 @@
         background: rgba(255, 255, 255, 0.15);
         z-index: 0;
       }
+      
+		.call {
+    padding: 100px 20px 50px 20px;
+    background: linear-gradient(to right, #e5d0ff, #d0f0ff);
+    text-align: center;
+    z-index: 1;
+}
+
+.call::before {
+    content: none;
+}
+
+.call-header {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #561eb2;
+    margin-bottom: 50px;
+    width: 100%;
+}
+
+.call-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-right: 70px;
+}
+
+.call-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.call-card:hover {
+    transform: translateY(-5px);
+}
+
+.call-card h3 {
+    color: #561eb2;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.call-card p {
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.call-card a {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #561eb2;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.call-card a:hover {
+    background: #401c7b;
+}
+
+@media (max-width: 768px) {
+    .call-card {
+        width: 90%;
+    }
+}
+
     </style>
   </head>
   <body>
@@ -91,5 +165,32 @@
 	      <p class="sub-text">Every story has a voice. Hear it here</p> 
       </div>
     </section>
-  </body>
+    
+  <section class="call">
+    <h2 class="call-header">Join a Call Room</h2>
+    <div class="call-container">
+        <div class="call-card">
+            <h3>Book Room</h3>
+            <p>Join discussion for Book items</p>
+            <a th:href="@{/call/1}">Join Call</a>
+        </div>
+        <div class="call-card">
+            <h3>Movie Room</h3>
+            <p>Join discussion for Movie items</p>
+            <a th:href="@{/call/2}">Join Call</a>
+        </div>
+        <div class="call-card">
+            <h3>Anime Room</h3>
+            <p>Join discussion for Anime items</p>
+            <a th:href="@{/call/3}">Join Call</a>
+        </div>
+        <div class="call-card">
+            <h3>Game Room</h3>
+            <p>Join discussion for Game items</p>
+            <a th:href="@{/call/4}">Join Call</a>
+        </div>
+    </div>
+</section>
+
+</body>
 </html>
