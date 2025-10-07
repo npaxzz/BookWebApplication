@@ -162,13 +162,11 @@
             
 <!-- Inline JS with Thymeleaf -->
 <script th:inline="javascript">
-    /* Username from Spring Security */
-	var username = /*[[${username != null ? "'" + username + "'" : null}]]*/ null;
-	console.log("USERNAME:", username);
-
-    // Rating star selection
+    // ใช้ session จาก server ตรวจสอบ login ผ่าน response 401
     let rating = 0;
     const stars = document.querySelectorAll("#rating-stars .star");
+
+    // ฟังก์ชันไฮไลท์ดาว
     function highlightStars(value) {
         stars.forEach(star => {
             if (parseInt(star.dataset.value) <= value) {
@@ -178,6 +176,8 @@
             }
         });
     }
+
+    // เลือกดาว
     stars.forEach(star => {
         star.addEventListener("click", () => {
             rating = parseInt(star.dataset.value);
@@ -187,13 +187,8 @@
 
     // Submit review
     document.getElementById("submit-review")?.addEventListener("click", () => {
-        if (!username) {
-            alert("⚠️ Please login before submitting a review.");
-            window.location.href = "/login";
-            return;
-        }
-
         const comment = document.getElementById("review-comment").value.trim();
+
         if(comment === "" || rating === 0) {
             alert("Please enter a comment and select a rating.");
             return;
@@ -202,14 +197,20 @@
         const itemId = /*[[${item.id}]]*/ 0;
 
         fetch("/reviews/item/" + itemId +
-              "?reviewerName=" + encodeURIComponent(username) +
-              "&rating=" + rating +
+              "?rating=" + rating +
               "&comment=" + encodeURIComponent(comment), {
             method: "POST"
         })
-        .then(res => res.json())
+        .then(res => {
+            if(res.status === 401) {
+                alert("⚠️ Please login before submitting a review.");
+                window.location.href = "/login";
+                throw new Error("Not logged in");
+            }
+            return res.json();
+        })
         .then(data => {
-            // Add new review to top
+            // เพิ่มรีวิวใหม่ด้านบน
             const container = document.getElementById("reviews-list");
             const div = document.createElement("div");
             div.className = "review-card";
@@ -218,7 +219,7 @@
                              <p>${data.comment}</p>`;
             container.insertBefore(div, container.firstChild);
 
-            // Reset input
+            // รีเซ็ตฟอร์ม
             document.getElementById("review-comment").value = "";
             rating = 0;
             highlightStars(0);
@@ -226,5 +227,6 @@
         .catch(err => console.error(err));
     });
 </script>
+
 </body>
 </html>
