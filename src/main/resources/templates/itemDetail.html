@@ -5,140 +5,71 @@
     <title th:text="${item.title}">Item Detail</title>
     <link rel="stylesheet" href="/css/styles.css">
     <style>
-		/* header */
-		header {
-			padding-top: 100px;
+        header {
+            padding-top: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px 20px;
+        }
+        header .Menu {
+            padding-top: 30px;
+            font-size: 2.6rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            color: #561eb2;
+            text-decoration: none;
+        }
+        .main-content { padding: 0 20px; margin-top: 20px; display: flex; justify-content: center; }
+        .item-detail-container { display: flex; flex-wrap: wrap; background: #fff; border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15); padding: 20px; gap: 20px; max-width: 900px; width: 100%; }
+        .item-detail-image { flex: 1 1 300px; max-width: 400px; }
+        .item-detail-image img { width: 100%; height: auto; border-radius: 10px; }
+        .item-detail-info { flex: 2 1 400px; display: flex; flex-direction: column; }
+        .item-detail-info h1 { margin-top: 0; color: #561eb2; }
+        .item-detail-info p { margin: 5px 0; color: #555; }
+        .item-detail-info .categories { margin: 10px 0; font-style: italic; color: #333; }
+        .reviews { margin-top: 15px; }
+        .review-card { background: #f4f4f4; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+        .review-card h4 { margin: 0; font-size: 1rem; color: #401c7b; }
+        .review-card p { margin: 3px 0; font-size: 0.9rem; color: #555; }
+        .back-button { display: inline-block; margin-top: 20px; padding: 8px 16px; background: #561eb2; color: #fff;
+            text-decoration: none; border-radius: 5px; font-weight: 600; width: max-content; }
+        .back-button:hover { background: #401c7b; }
+        .add-review {
+		    width: 100%;          
+		    max-width: 900px;      
+		    margin: 20px auto;   
 		    display: flex;
-		    flex-direction: column;
-		    justify-content: center;
-		    align-items: center;
-		    text-align: center;
-		    color: white;
-		    padding: 20px 20px;
+		    flex-direction: column; 
 		}
-		
-		header .Menu {
-			padding-top: 30px;
-		    font-size: 2.6rem;
-		    font-weight: 800;
-		    text-transform: uppercase;
-		    letter-spacing: 1px;
-		    margin-bottom: 10px;
-		    color: #561eb2;
-		    text-decoration: none;
-		}
-		
-		/* main content */
-		.main-content {
-		    padding: 0 20px;
-		    margin-top: 20px; /* header ปรับให้ไม่เยอะ */
+		.reviews{width: 100%;          
+		    max-width: 900px;      
+		    margin: 20px auto;   
 		    display: flex;
-		    justify-content: center;
-		}
-		
-		/* item detail container */
-		.item-detail-container {
-		    display: flex;
-		    flex-wrap: wrap;
-		    background: #fff;
-		    border-radius: 10px;
-		    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-		    padding: 20px;
-		    gap: 20px;
-		    max-width: 900px; /* กำหนดขนาดสูงสุด */
-		    width: 100%;
-		}
-		
-		/* image */
-		.item-detail-image {
-		    flex: 1 1 300px;
-		    max-width: 400px;
-		}
-		
-		.item-detail-image img {
-		    width: 100%;
-		    height: auto;
-		    border-radius: 10px;
-		}
-		
-		/* info */
-		.item-detail-info {
-		    flex: 2 1 400px;
-		    display: flex;
-		    flex-direction: column;
-		}
-		
-		.item-detail-info h1 {
-		    margin-top: 0;
-		    color: #561eb2;
-		}
-		
-		.item-detail-info p {
-		    margin: 5px 0;
-		    color: #555;
-		}
-		
-		.item-detail-info .categories {
-		    margin: 10px 0;
-		    font-style: italic;
-		    color: #333;
-		}
-		
-		.reviews {
-		    margin-top: 15px;
-		}
-		
-		.review-card {
-		    background: #f4f4f4;
-		    padding: 10px;
-		    margin-bottom: 10px;
-		    border-radius: 5px;
-		}
-		
-		.review-card h4 {
-		    margin: 0;
-		    font-size: 1rem;
-		    color: #401c7b;
-		}
-		
-		.review-card p {
-		    margin: 3px 0;
-		    font-size: 0.9rem;
-		    color: #555;
-		}
-		
-		.back-button {
-		    display: inline-block;
-		    margin-top: 20px;
-		    padding: 8px 16px;
-		    background: #561eb2;
-		    color: #fff;
-		    text-decoration: none;
-		    border-radius: 5px;
-		    font-weight: 600;
-		    width: max-content;
-		}
-		
-		.back-button:hover {
-		    background: #401c7b;
-		}
-		
-		@media (max-width: 768px) {
-		    .item-detail-container {
-		        flex-direction: column;
-		        align-items: center;
-		    }
-		
-		    .item-detail-info {
-		        width: 100%;
-		    }
-		}
+		    flex-direction: column; 
+		 }
+		   
+		.add-review textarea { width: 100%; margin-top: 15px; }
+        .add-review #rating-stars .star { font-size: 24px; cursor: pointer; color: #ccc; }
+        .add-review #rating-stars .star.selected { color: gold; }
+        .add-review button { margin-top: 10px; padding: 8px 16px; background: #561eb2; color: #fff; border: none;
+            border-radius: 5px; cursor: pointer; font-weight: 600; }
+        .add-review button:hover { background: #401c7b; }
+        @media (max-width: 768px) {
+            .item-detail-container { flex-direction: column; align-items: center; }
+            .item-detail-info { width: 100%; }
+        }
     </style>
 </head>
 <body>
-    <header>
-    		<a class="Menu">ReviewVerse</a>
-	</header>
+ <div th:replace="fragments/header :: header"></div>
+
 <div class="main-content">
     <div class="item-detail-container">
         <div class="item-detail-image">
@@ -154,8 +85,31 @@
             <p><strong>Description:</strong></p>
             <p th:text="${item.description}">Description goes here...</p>
 
-            <div class="reviews">
-                <h3>Reviews</h3>
+            
+
+            <a th:href="@{'/items/' + ${item.type.toLowerCase()}}" class="back-button">
+                Back to <span th:text="${item.type}">Type</span> List
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Add Review Section (visible for everyone, alert if not logged in) -->
+<div class="add-review">
+    <h3>Submit Your Review</h3>
+    <textarea id="review-comment" rows="3" placeholder="Write your review..."></textarea>
+    <div id="rating-stars">
+        <span class="star" data-value="1">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="5">&#9733;</span>
+    </div>
+    <button id="submit-review">Submit Review</button>
+</div>
+
+<div class="reviews" id="reviews-list">
+
                 <div th:if="${#lists.isEmpty(item.reviews)}">
                     <p>No reviews yet.</p>
                 </div>
@@ -165,15 +119,70 @@
                     <p th:text="${review.comment}">Comment goes here...</p>
                 </div>
             </div>
-
-            <!-- ปุ่ม Back แบบ dynamic ตาม type ของ item -->
-            <a th:href="@{'/items/' + ${item.type.toLowerCase()}}" class="back-button">
-                Back to <span th:text="${item.type}">Type</span> List
-            </a>
             
-        </div>
-    </div>
-</div>
+<!-- Inline JS with Thymeleaf -->
+<script th:inline="javascript">
+    /* Username from Spring Security */
+    var username = /*[[${username != null ? "'" + username + "'" : 'null'}]]*/ null;
 
+    // Rating star selection
+    let rating = 0;
+    const stars = document.querySelectorAll("#rating-stars .star");
+    function highlightStars(value) {
+        stars.forEach(star => {
+            if (parseInt(star.dataset.value) <= value) {
+                star.classList.add("selected");
+            } else {
+                star.classList.remove("selected");
+            }
+        });
+    }
+    stars.forEach(star => {
+        star.addEventListener("click", () => {
+            rating = parseInt(star.dataset.value);
+            highlightStars(rating);
+        });
+    });
+
+    // Submit review
+    document.getElementById("submit-review")?.addEventListener("click", () => {
+        if (!username) {
+            alert("⚠️ Please login before submitting a review.");
+            return;
+        }
+
+        const comment = document.getElementById("review-comment").value.trim();
+        if(comment === "" || rating === 0) {
+            alert("Please enter a comment and select a rating.");
+            return;
+        }
+
+        const itemId = /*[[${item.id}]]*/ 0;
+
+        fetch("/reviews/item/" + itemId +
+              "?reviewerName=" + encodeURIComponent(username) +
+              "&rating=" + rating +
+              "&comment=" + encodeURIComponent(comment), {
+            method: "POST"
+        })
+        .then(res => res.json())
+        .then(data => {
+            // Add new review to top
+            const container = document.getElementById("reviews-list");
+            const div = document.createElement("div");
+            div.className = "review-card";
+            div.innerHTML = `<h4>${data.reviewerName}</h4>
+                             <p><strong>Rating:</strong> ${data.rating}/5</p>
+                             <p>${data.comment}</p>`;
+            container.insertBefore(div, container.firstChild);
+
+            // Reset input
+            document.getElementById("review-comment").value = "";
+            rating = 0;
+            highlightStars(0);
+        })
+        .catch(err => console.error(err));
+    });
+</script>
 </body>
 </html>

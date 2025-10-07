@@ -1,5 +1,6 @@
 package com.bookweb.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,10 +72,17 @@ public class ItemWebController {
 	}
 
 	@GetMapping("/{id}")
-	public String itemDetail(@PathVariable Long id, Model model) {
-		ItemDTO item = itemService.getItemById(id);
-		model.addAttribute("item", item);
-		return "itemDetail";
+	public String itemDetail(@PathVariable Long id, Model model, Principal principal) {
+	    ItemDTO item = itemService.getItemById(id);
+	    model.addAttribute("item", item);
+
+	    String username = principal != null ? principal.getName() : null;
+	    model.addAttribute("username", username);
+
+	    return "itemDetail";
 	}
 
+
 }
+
+

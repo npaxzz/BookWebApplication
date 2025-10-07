@@ -29,7 +29,7 @@
         letter-spacing: 1px;
       }
       header ul li a {
-        color: #39caf7;
+        color: rgb(42, 158, 194);
         font-weight: 800;
         font-size: 1.25rem;
         text-decoration: none;
@@ -60,17 +60,7 @@
     </style>
   </head>
   <body>
-    <header>
-      <a href="#" class="Menu">ReviewVerse</a>
-      <ul>
-        <li><a href="/" class="Home">Home</a></li>
-        <li><a href="/items/book" class="Book">Book</a></li>
-		<li><a href="/items/movie" class="Movie">Movie/Series</a></li>
-		<li><a href="/items/cartoon" class="active">Cartoon/Anime</a></li>
-		<li><a href="/items/game" class="Game">Game</a></li>
-		<li><a href="/items/category" class="Category">Category</a></li>
-      </ul>
-    </header>
+    <div th:replace="fragments/header :: header"></div>
     <section>
       <img src="/img/cartoon.jpg" />
     </section>
