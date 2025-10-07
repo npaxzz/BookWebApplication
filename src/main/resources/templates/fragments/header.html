@@ -1,5 +1,7 @@
 <header>
     <a href="/" class="Menu">ReviewVerse</a>
+    <link rel="stylesheet" href="/css/styles.css">
+
     <ul class="nav-menu">
         <li><a th:href="@{/}" class="Home">Home</a></li>
         <li><a th:href="@{/items/book}" class="Book">Book</a></li>
@@ -13,24 +15,10 @@
             <a th:href="@{/login}">Login</a>
         </li>
 
-
-<!-- Logged-in user 
         <li th:if="${session.user != null}">
-            <span>👤<span th:text="${session.user.username}">Username</span></span>
-        </li>
-        <li th:if="${session.user != null}">
-            <a th:href="@{/logout}">Logout</a>
-         </li>   
--->
-		<li th:if="${session.user != null}">
-			<a th:href="@{/user}">👤<span th:text="${session.user.username}">Username</span></a>
+		  <a th:href="@{/user}">
+		    👤
+		  </a>
 		</li>
-		
-<!--
-		<li th:if="${session.user != null}">
-    		<a th:href="@{/logout}">Logout</a>
-		</li>
--->
-        
     </ul>
 </header>
