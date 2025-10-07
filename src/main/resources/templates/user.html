@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Profile</title>
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <style>
+/*      body {
+        background: linear-gradient(#ffd5df);
+      }
+*/      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        padding: 23px 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        background: linear-gradient(#ffd5df);
+      }
+      header .Menu {
+        color: #e23485;
+        font-weight: 800;
+        text-decoration: none;
+        font-size: 2.6rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      header ul li a {
+        color: #e23485;
+        font-weight: 800;
+        font-size: 1.25rem;
+        text-decoration: none;
+        padding: 6px 10px;
+        border-radius: 50px;
+      }
+      header ul li a:hover,
+      header ul li a.active {
+        background: #fff;
+        color: #e23485;
+      }
+    </style>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+	<div class="profile-container">
+    	<h2 th:text="${user.username}">Username</h2>
+    	<p>Email: <span th:text="${user.email}">email@example.com</span></p>
+
+    	<a href="/logout" class="logout-btn">Logout</a>
+	</div>
+
+
+</div>
+</body>
+</html>

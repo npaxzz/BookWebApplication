@@ -8,6 +8,7 @@ html {
   scroll-behavior: smooth;
 }
 
+
 header ul {
   display: flex;
   justify-content: end;
@@ -19,6 +20,46 @@ header ul li {
   margin-left: 30px;
 }
 
+/*
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    padding: 23px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(#ffd5df);
+}
+header .Menu {
+    color: #e23485;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 2.6rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+header ul.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+header ul.nav-menu li a, header ul.nav-menu li span {
+    color: #e23485;
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 50px;
+}
+header ul.nav-menu li a:hover {
+    background: #fff;
+    color: #e23485;
+}
+*/
 section {
   position: relative;
   width: 100%;
