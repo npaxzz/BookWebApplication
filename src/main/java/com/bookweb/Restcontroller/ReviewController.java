@@ -1,4 +1,4 @@
-package com.bookweb.controller;
+package com.bookweb.Restcontroller;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 
 import com.bookweb.dto.ReviewDTO;
 import com.bookweb.model.Item;
-import com.bookweb.model.Review;
 import com.bookweb.model.User;
 import com.bookweb.repository.ItemRepository;
 import com.bookweb.service.ReviewService;
@@ -59,6 +58,4 @@ public class ReviewController {
 
         return ResponseEntity.ok(savedReview);
     }
-
-    }
-
+}

@@ -9,13 +9,17 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String reviewerName; // ชื่อผู้รีวิว
-    private int rating;          // คะแนน
-    private String comment;      // ความคิดเห็น
+    private String reviewerName;
+    private int rating;
+    private String comment;
 
     @ManyToOne
     @JoinColumn(name = "item_id")
-    private Item item;           // Item ที่รีวิว
+    private Item item;  // <-- แก้ตรงนี้
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;  // ถ้าต้องการเชื่อมกับผู้ใช้
 
     public Review() {}
 
@@ -34,4 +38,9 @@ public class Review {
 
     public Item getItem() { return item; }
     public void setItem(Item item) { this.item = item; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+    
+    
 }

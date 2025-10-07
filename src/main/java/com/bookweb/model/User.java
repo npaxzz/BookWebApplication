@@ -1,6 +1,7 @@
 package com.bookweb.model;
 
 import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -18,6 +19,9 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Review> reviews;
 
     public User() {}
 
@@ -39,4 +43,7 @@ public class User {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public Set<Review> getReviews() { return reviews; }
+    public void setReviews(Set<Review> reviews) { this.reviews = reviews; }
 }

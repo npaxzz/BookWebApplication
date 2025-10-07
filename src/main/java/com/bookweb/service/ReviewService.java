@@ -34,10 +34,11 @@ public class ReviewService {
         review.setReviewerName(reviewerName);
         review.setRating(rating);
         review.setComment(comment);
-        review.setItem(item);
+        review.setItem(item); // <-- แก้ตรงนี้
 
         Review saved = reviewRepository.save(review);
         return convertToDTO(saved);
     }
+
 }
 

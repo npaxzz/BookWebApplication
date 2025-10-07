@@ -1,59 +1,149 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>User Profile</title>
+    <meta charset="UTF-8">
+    <title th:text="${user.username} + ' Profile'">User Profile</title>
     <link rel="stylesheet" th:href="@{/css/user.css}">
     <style>
-/*      body {
-        background: linear-gradient(#ffd5df);
-      }
-*/      header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 70px;
-        padding: 23px 100px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 100;
-        background: linear-gradient(#ffd5df);
-      }
-      header .Menu {
-        color: #e23485;
-        font-weight: 800;
-        text-decoration: none;
-        font-size: 2.6rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-      header ul li a {
-        color: #e23485;
-        font-weight: 800;
-        font-size: 1.25rem;
-        text-decoration: none;
-        padding: 6px 10px;
-        border-radius: 50px;
-      }
-      header ul li a:hover,
-      header ul li a.active {
-        background: #fff;
-        color: #e23485;
-      }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        header { position: fixed; top:0; left:0; width:100%; height:70px; padding:23px 100px;
+                 display:flex; justify-content:space-between; align-items:center; background:#ffd5df; z-index:100; }
+        header .Menu { color:#e23485; font-weight:800; text-decoration:none; font-size:2.6rem; text-transform:uppercase; letter-spacing:1px; }
+        header ul li a { color:#e23485; font-weight:800; font-size:1.25rem; text-decoration:none; padding:6px 10px; border-radius:50px; }
+        header ul li a:hover, header ul li a.active { background:#fff; color:#e23485; }
+        .profile-container { margin-top:100px; padding: 20px; }
+        .reviews-container { margin-top:20px; max-width:900px; margin-left:auto; margin-right:auto; }
+        .review-card { background:#f4f4f4; padding:15px; border-radius:5px; margin-bottom:10px; position:relative; }
+        .review-card h4 { margin:0; font-size:1.2rem; }
+        .review-card p { margin:5px 0; }
+        .review-actions { position:absolute; top:10px; right:10px; cursor:pointer; }
+        .review-actions span { margin-left:5px; cursor:pointer; color:#561eb2; }
+        /* Modal */
+        .modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; overflow:auto;
+                 background-color:rgba(0,0,0,0.5); }
+        .modal-content { background:#fff; margin:10% auto; padding:20px; border-radius:10px; max-width:500px; position:relative; }
+        .close { position:absolute; top:10px; right:20px; font-size:25px; font-weight:bold; cursor:pointer; }
+        #edit-review textarea { width:100%; height:100px; margin-bottom:10px; }
+        #edit-review #edit-rating-stars .star { font-size:24px; cursor:pointer; color:#ccc; }
+        #edit-review #edit-rating-stars .star.selected { color: gold; }
+        #edit-review button { padding:8px 16px; background:#561eb2; color:#fff; border:none; border-radius:5px; cursor:pointer; }
+        #edit-review button:hover { background:#401c7b; }
     </style>
 </head>
 <body>
-    <div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 
-	<div class="profile-container">
-    	<h2 th:text="${user.username}">Username</h2>
-    	<p>Email: <span th:text="${user.email}">email@example.com</span></p>
-
-    	<a href="/logout" class="logout-btn">Logout</a>
-	</div>
-
-
+<div class="profile-container">
+    <h2 th:text="${user.username}">Username</h2>
+    <p>Email: <span th:text="${user.email}">email@example.com</span></p>
+    <a href="/logout" class="logout-btn">Logout</a>
 </div>
+
+<div class="reviews-container">
+    <h3>Your Reviews</h3>
+    <div th:each="review : ${reviews}" class="review-card" th:attr="data-id=${review.id}">
+        <h4>
+            <a th:href="@{'/items/' + ${review.item.id}}" th:text="${review.item.title}">Item Title</a>
+        </h4>
+        <p><strong>Rating:</strong> <span th:text="${review.rating}">5</span>/5</p>
+        <p th:text="${review.comment}">Your comment...</p>
+        <div class="review-actions">
+            <span class="edit-btn">✎</span>
+            <span class="delete-btn">🗑️</span>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Review -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Edit Review</h3>
+        <form id="edit-review">
+            <textarea id="edit-comment"></textarea>
+            <div id="edit-rating-stars">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    let currentEditId = null;
+    let editRating = 0;
+
+    // Modal
+    const modal = document.getElementById("editModal");
+    const closeModal = modal.querySelector(".close");
+    closeModal.onclick = () => modal.style.display = "none";
+
+    // Stars selection
+    const editStars = document.querySelectorAll("#edit-rating-stars .star");
+    function highlightEditStars(value) {
+        editStars.forEach(star => {
+            if (parseInt(star.dataset.value) <= value) star.classList.add("selected");
+            else star.classList.remove("selected");
+        });
+    }
+    editStars.forEach(star => {
+        star.addEventListener("click", () => {
+            editRating = parseInt(star.dataset.value);
+            highlightEditStars(editRating);
+        });
+    });
+
+    // Edit buttons
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const card = e.target.closest(".review-card");
+            currentEditId = card.getAttribute("data-id");
+            const comment = card.querySelector("p:nth-of-type(2)").innerText;
+            const rating = parseInt(card.querySelector("span").innerText);
+            document.getElementById("edit-comment").value = comment;
+            editRating = rating;
+            highlightEditStars(rating);
+            modal.style.display = "block";
+        });
+    });
+
+    // Delete buttons
+    document.querySelectorAll(".delete-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const card = e.target.closest(".review-card");
+            const reviewId = card.getAttribute("data-id");
+            if(confirm("Are you sure you want to delete this review?")) {
+                fetch("/reviews/" + reviewId, { method:"DELETE" })
+                    .then(res => { if(res.ok) card.remove(); })
+                    .catch(err => console.error(err));
+            }
+        });
+    });
+
+    // Submit edit via Ajax
+    document.getElementById("edit-review").addEventListener("submit", function(e){
+        e.preventDefault();
+        const comment = document.getElementById("edit-comment").value.trim();
+        if(comment === "" || editRating === 0){ alert("Please enter comment and select rating"); return; }
+        fetch("/reviews/" + currentEditId, {
+            method: "PUT",
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({comment: comment, rating: editRating})
+        })
+        .then(res => res.json())
+        .then(data => {
+            const card = document.querySelector(`.review-card[data-id='${currentEditId}']`);
+            card.querySelector("p:nth-of-type(2)").innerText = data.comment;
+            card.querySelector("span").innerText = data.rating;
+            modal.style.display = "none";
+        })
+        .catch(err => console.error(err));
+    });
+</script>
+
 </body>
 </html>
