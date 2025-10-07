@@ -50,7 +50,30 @@
     </style>
   </head>
   <body>
-    <div th:replace="fragments/header :: header"></div>
+    <header>
+    <a href="/" class="Menu">ReviewVerse</a>
+
+    <ul class="nav-menu">
+        <li><a th:href="@{/}" class="Home">Home</a></li>
+        <li><a th:href="@{/items/book}" class="Book">Book</a></li>
+        <li><a th:href="@{/items/movie}" class="Movie">Movie/Series</a></li>
+        <li><a th:href="@{/items/cartoon}" class="Cartoon">Cartoon/Anime</a></li>
+        <li><a th:href="@{/items/game}" class="Game">Game</a></li>
+        <li><a th:href="@{/items/category}" class="active">Category</a></li>
+
+        <!-- Login / Register -->
+        <li th:if="${session.user == null}">
+            <a th:href="@{/login}">Login</a>
+        </li>
+
+        <li th:if="${session.user != null}">
+		  <a th:href="@{/user}">
+		    👤
+		  </a>
+		</li>
+    </ul>
+</header>
+
     <section>
       <img src="/img/category.png" />
     </section>

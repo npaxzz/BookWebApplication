@@ -5,11 +5,47 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #f5f3ff;
-  font-family: Arial, sans-serif;
-  margin: 0;
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(#ffd5df, #f5f3ff);
+  font-family: "Times New Roman", Times, serif; /* ฟอนต์เดียวกับ index */
+  padding-top: 90px; /* เว้น header */
+}
+
+/* Header */
+header {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 70px;
+   padding: 23px 100px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   z-index: 10;
+  background: linear-gradient(#ffd5df, #ffe6f0);
+}
+
+header .Menu {
+        color: #e23485;
+        font-weight: 800;
+        text-decoration: none;
+        font-size: 2.6rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
 
 
 header ul {
@@ -22,78 +58,60 @@ header ul li {
   list-style: none;
   margin-left: 30px;
 }
-/* Header */
-/*header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white;
-  padding: 20px 40px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
 
-header .Menu {
-  font-size: 2rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: #561eb2;
-  text-decoration: none;
-}
+header ul li a {
+        color: #e23485;
+        font-weight: 800;
+        font-size: 1.25rem;
+        text-decoration: none;
+        padding: 6px 10px;
+        border-radius: 50px;
+      }
 
-header .menu-right a {
-  color: #561eb2;
-  text-decoration: none;
-  margin-left: 20px;
-  font-weight: 600;
-}
+      header ul li a:hover,
+      header ul li a.active {
+        background: #fff;
+        color: #e23485;
+      }
 
-header .menu-right a:hover {
-  color: #401c7b;
-}
 
-/* Profile */
+
+/* Profile container */
 .profile-container {
-  max-width: 600px;
-  margin: 100px auto;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  padding: 30px 40px;
-  text-align: center;
+  max-width: 900px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: inherit;
 }
 
 .profile-container h2 {
-  color: #561eb2;
+  font-size: 2.4rem; /* เหมือนขนาด .Menu */
+  color: #e23485;
   margin-bottom: 10px;
 }
 
 .profile-container p {
-  font-size: 1rem;
-  color: #555;
-  margin: 6px 0;
+  font-size: 1.25rem; /* เหมือนเมนู */
+  margin-bottom: 10px;
 }
 
-/* ปุ่ม logout */
 .logout-btn {
   display: inline-block;
-  margin-top: 25px;
-  padding: 10px 20px;
-  background-color: #561eb2;
-  color: white;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #e23485;
+  color: #fff;
   text-decoration: none;
   border-radius: 8px;
-  font-weight: bold;
-  transition: 0.3s;
+  font-weight: 800;
+  font-family: inherit;
+  font-size: 1.25rem; /* เหมือนเมนู */
+  transition: all 0.3s ease;
 }
 
 .logout-btn:hover {
-  background-color: #401c7b;
-}
-
-/* ส่วนท้าย */
-.footer {
-  text-align: center;
-  padding: 20px;
-  color: #777;
-  margin-top: 50px;
+  background: #c81e6b;
 }
