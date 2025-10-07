@@ -7,4 +7,5 @@ import com.bookweb.model.Item;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
+	boolean existsByTitle(String title);
 }

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Item</title>
+   <style>
+		/* --- Base Reset --- */
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		html, body {
+		    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		    background: linear-gradient(135deg, #e0f7fa, #ffffff);
+		    height: 100%;
+		    min-height: 100%;
+		    overflow-y: auto; /* <-- ทำให้ scroll ได้ */
+		}
+		
+		/* --- Centering container --- */
+		body {
+		    display: flex;
+		    justify-content: center;
+		    align-items: flex-start; /* ใช้ flex-start เพื่อเลื่อนได้ถ้าสูงเกิน */
+		    padding: 50px 20px; /* มี padding รอบ ๆ */
+		}
+		
+		/* --- Card Container --- */
+		.card {
+		    background-color: #fff;
+		    width: 100%;
+		    max-width: 600px;
+		    padding: 40px 30px;
+		    border-radius: 16px;
+		    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+		    text-align: center;
+		}
+		
+		/* --- Header & Buttons --- */
+		.header-flex {
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		    margin-bottom: 20px;
+		}
+		.btn-back {
+		    background-color: #1e84ea;
+		    color: #fff;
+		    text-decoration: none;
+		    display: inline-block;
+		    padding: 10px 16px;
+		    border-radius: 10px;
+		}
+		.btn-back:hover { background-color: #495057; }
+		
+		/* --- Form Elements --- */
+		form label {
+		    display: block;
+		    margin-bottom: 6px;
+		    font-weight: 600;
+		    color: #555;
+		    text-align: left;
+		}
+		
+		input[type="text"],
+		input[type="number"],
+		input[type="file"],
+		select,
+		textarea {
+		    width: 100%;
+		    padding: 12px;
+		    margin-bottom: 16px;
+		    border: 1px solid #ccc;
+		    border-radius: 10px;
+		    font-size: 14px;
+		    transition: border-color 0.3s;
+		}
+		
+		input:focus,
+		select:focus,
+		textarea:focus {
+		    outline: none;
+		    border-color: #007bff;
+		}
+		
+		textarea { resize: vertical; }
+		
+		/* --- Submit Button --- */
+		button {
+		    padding: 12px 20px;
+		    border-radius: 10px;
+		    border: none;
+		    font-size: 16px;
+		    cursor: pointer;
+		    transition: all 0.3s;
+		    background-color: #007bff;
+		    color: #fff;
+		}
+		button:hover { background-color: #0056b3; }
+		
+		/* --- Alerts --- */
+		.alert {
+		    padding: 12px 16px;
+		    border-radius: 10px;
+		    margin-bottom: 20px;
+		    font-weight: 500;
+		}
+		.alert.success { background-color: #28a745; color: #fff; }
+		.alert.error { background-color: #dc3545; color: #fff; }
+		</style>
+
+</head>
+<body>
+    <div class="card">
+        <div class="header-flex">
+            <h2>Add New Item</h2>
+            <a href="/" class="btn-back">⬅ Back to HOME</a>
+        </div>
+
+        <div th:if="${successMessage}" class="alert success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert error" th:text="${errorMessage}"></div>
+
+        <form th:action="@{/items/add}" th:object="${item}" method="post" enctype="multipart/form-data">
+            <label>Title:</label>
+            <input type="text" th:field="*{title}" required />
+
+            <label>Creator:</label>
+            <input type="text" th:field="*{creator}" />
+
+            <label>Type:</label>
+            <select th:field="*{type}">
+                <option value="BOOK">Book</option>
+                <option value="MOVIE">Movie</option>
+                <option value="CARTOON">Cartoon</option>
+                <option value="GAME">Game</option>
+            </select>
+
+            <label>Categories:</label>
+            <select th:field="*{categoryId}" multiple>
+                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+            </select>
+
+            <label>Price:</label>
+            <input type="number" step="0.01" th:field="*{price}" />
+
+            <label>Description:</label>
+            <textarea th:field="*{description}" rows="4" placeholder="Enter description..."></textarea>
+
+            <label>Image URL OR Upload Image:</label>
+            <input type="text" th:field="*{imageUrl}" />
+            <input type="file" name="imageFile" />
+
+            <button type="submit">Add Item</button>
+        </form>
+    </div>
+</body>
+</html>

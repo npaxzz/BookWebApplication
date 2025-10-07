@@ -38,9 +38,25 @@
         .review-card { background: #f4f4f4; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
         .review-card h4 { margin: 0; font-size: 1rem; color: #401c7b; }
         .review-card p { margin: 3px 0; font-size: 0.9rem; color: #555; }
-        .back-button { display: inline-block; margin-top: 20px; padding: 8px 16px; background: #561eb2; color: #fff;
-            text-decoration: none; border-radius: 5px; font-weight: 600; width: max-content; }
-        .back-button:hover { background: #401c7b; }
+        .back-button, .delete-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 16px;
+    background: #561eb2;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    width: max-content;
+    border: none; /* เอาขอบดำออก */
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.back-button:hover, .delete-button:hover {
+    background: #401c7b;
+}
+
         .add-review {
 		    width: 100%;          
 		    max-width: 900px;      
@@ -94,19 +110,29 @@
             <p><strong>Creator:</strong> <span th:text="${item.creator}">Creator Name</span></p>
             <p><strong>Type:</strong> <span th:text="${item.type}">BOOK</span></p>
             <p class="categories"><strong>Categories:</strong> 
-                <span th:each="cat : ${item.categories}" th:text="${cat} + ' '"></span>
+                <span th:each="cat : ${item.categories}" th:text="${cat} + ' '"></span> 
+            <p>
+        		<strong>Price:</strong> $<span th:text="${item.price} ?: 0.0">0.0</span>
+    		</p>
             </p>
             <p><strong>Description:</strong></p>
             <p th:text="${item.description}">Description goes here...</p>
-
             
-
             <a th:href="@{'/items/' + ${item.type.toLowerCase()}}" class="back-button">
                 Back to <span th:text="${item.type}">Type</span> List
             </a>
+            
+            <div th:if="${currentUserId != null and item.ownerId == currentUserId}">
+    <form th:action="@{'/items/' + ${item.id} + '/delete'}" method="post" style="display: inline;">
+        <button type="submit" class="back-button delete-button">DELETE</button>
+    </form>
+</div>
+
         </div>
     </div>
 </div>
+
+
 
 <!-- Add Review Section (visible for everyone, alert if not logged in) -->
 <div class="add-review">

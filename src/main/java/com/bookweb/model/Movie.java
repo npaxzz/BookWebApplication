@@ -14,7 +14,8 @@ public class Movie extends Item {
 		this.setType(ItemType.MOVIE);
 	}
 
-	public Movie(ItemType type, String title, String creator, String description, Set<Category> categories) {
-		super(ItemType.MOVIE, title, creator, description, categories);
+	public Movie(ItemType type, String title, String creator, String description, Double price,
+			Set<Category> categories) {
+		super(ItemType.MOVIE, title, creator, description, price, categories);
 	}
 }

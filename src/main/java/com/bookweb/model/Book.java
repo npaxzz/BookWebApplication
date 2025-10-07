@@ -14,7 +14,7 @@ public class Book extends Item {
 		this.setType(ItemType.BOOK);
 	}
 
-	public Book(String title, String creator, String description, Set<Category> categories) {
-		super(ItemType.BOOK, title, creator, description, categories);
+	public Book(String title, String creator, String description, Double price, Set<Category> categories) {
+		super(ItemType.BOOK, title, creator, description, price, categories);
 	}
 }

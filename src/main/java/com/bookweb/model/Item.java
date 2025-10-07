@@ -16,7 +16,9 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -30,6 +32,8 @@ public class Item {
 
 	private String title; // ใช้ได้ทั้ง หนังสือ หนัง การ์ตูน
 	private String creator; // เช่น author, director, ..
+
+	@Lob
 	private String description;
 
 	@Enumerated(EnumType.STRING)
@@ -37,9 +41,11 @@ public class Item {
 
 	private String imageUrl; // เพิ่มสำหรับเก็บ path หรือ URL ของไฟล์
 
-	// fields เฉพาะ type
-	private Double price; // สำหรับ GAME
-	private String studio; // สำหรับ CARTOON
+	private Double price;
+
+	@ManyToOne
+	@JoinColumn(name = "owner_id")
+	private User owner;
 
 	@ManyToMany
 	@JoinTable(name = "item_categories", joinColumns = @JoinColumn(name = "item_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
@@ -51,11 +57,13 @@ public class Item {
 	public Item() {
 	}
 
-	public Item(ItemType type, String title, String creator, String description, Set<Category> categories) {
+	public Item(ItemType type, String title, String creator, String description, Double price,
+			Set<Category> categories) {
 		this.type = type;
 		this.title = title;
 		this.creator = creator;
 		this.description = description;
+		this.price = price;
 		this.categories = categories;
 	}
 
@@ -132,11 +140,12 @@ public class Item {
 		this.price = price;
 	}
 
-	public String getStudio() {
-		return studio;
+	public User getOwner() {
+		return owner;
 	}
 
-	public void setStudio(String studio) {
-		this.studio = studio;
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
+
 }

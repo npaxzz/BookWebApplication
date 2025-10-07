@@ -7,8 +7,13 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bookweb.dto.ItemDTO;
 import com.bookweb.model.Category;
@@ -73,17 +78,68 @@ public class ItemWebController {
 		return "category";
 	}
 
+	@GetMapping("/new")
+	public String showAddItemForm(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+		User currentUser = (User) session.getAttribute("user");
+		if (currentUser == null) {
+			redirectAttributes.addFlashAttribute("errorMessage", "❌ กรุณาเข้าสู่ระบบก่อนเพิ่มรายการ!");
+			return "redirect:/login";
+		}
+
+		model.addAttribute("item", new ItemDTO());
+		model.addAttribute("categories", itemService.getAllCategories());
+		return "new-item";
+	}
+
+	@PostMapping("/add")
+	public String addItem(@ModelAttribute("item") ItemDTO itemDTO,
+			@RequestParam(value = "imageFile", required = false) MultipartFile imageFile, HttpSession session,
+			RedirectAttributes redirectAttributes) {
+		User currentUser = (User) session.getAttribute("user");
+		if (currentUser == null) {
+			redirectAttributes.addFlashAttribute("errorMessage", "❌ กรุณาเข้าสู่ระบบก่อนเพิ่มรายการ!");
+			return "redirect:/login";
+		}
+
+		try {
+			itemService.addItem(itemDTO, imageFile, currentUser); // ส่ง currentUser ไปบันทึกเป็นเจ้าของ
+			redirectAttributes.addFlashAttribute("successMessage", "✅ เพิ่มรายการสำเร็จแล้ว!");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("errorMessage", "❌ เพิ่มรายการไม่สำเร็จ: " + e.getMessage());
+		}
+
+		return "redirect:/items/new";
+	}
+
 	@GetMapping("/{id}")
 	public String itemDetail(@PathVariable Long id, Model model, HttpSession session) {
 		ItemDTO item = itemService.getItemById(id);
 		model.addAttribute("item", item);
 
-		// ดึงจาก session แทน Principal
 		User currentUser = (User) session.getAttribute("user");
-		String username = currentUser != null ? currentUser.getUsername() : null;
-		model.addAttribute("username", username);
+		model.addAttribute("currentUserId", currentUser != null ? currentUser.getId() : null);
 
 		return "itemDetail";
+	}
+
+	@PostMapping("/{id}/delete")
+	public String deleteItem(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttributes) {
+		User currentUser = (User) session.getAttribute("user");
+		if (currentUser == null) {
+			redirectAttributes.addFlashAttribute("errorMessage", "❌ ต้องล็อกอินก่อนทำการลบ");
+			return "redirect:/login";
+		}
+
+		ItemDTO item = itemService.getItemById(id);
+
+		if (!currentUser.getId().equals(item.getOwnerId())) {
+			redirectAttributes.addFlashAttribute("errorMessage", "❌ คุณลบไอเท็มนี้ไม่ได้");
+			return "redirect:/items/category";
+		}
+
+		itemService.deleteItem(id);
+		redirectAttributes.addFlashAttribute("successMessage", "✅ ลบไอเท็มสำเร็จ");
+		return "redirect:/items/category";
 	}
 
 }

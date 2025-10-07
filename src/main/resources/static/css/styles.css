@@ -170,3 +170,6 @@ section img {
 .main-content {
     padding: 0 50px; /* เว้นซ้าย-ขวา 20px */
 }
+
+.alert.success { color: #155724; background: #d4edda; padding: 10px; border-radius: 4px; margin-bottom: 10px; }
+.alert.error { color: #721c24; background: #f8d7da; padding: 10px; border-radius: 4px; margin-bottom: 10px; }

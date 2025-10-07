@@ -56,6 +56,16 @@
 	    color: #fff;             
 	    border-bottom: 2px solid #fff;
 	}
+	
+	.btn-add {
+    background-color: #fff;
+    color: #210d60;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s;
+	}
     </style>
   </head>
   <body>
@@ -89,6 +99,13 @@
     <div class="section-header">
 		<h2 class="section-title">Movie List</h2>
 	</div>
+	
+	<div style="display: flex; justify-content: center; align-items: center; position: relative; top: 30px;">
+    <a href="/items/new" class="btn-add">➕ Add Item</a>
+	</div>
+	<div th:if="${successMessage}" class="alert success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="alert error" th:text="${errorMessage}"></div>
+	
 	   <div th:if="${#lists.isEmpty(items)}">
 		    <p>No items found.</p>
 		</div>

@@ -9,24 +9,14 @@ import jakarta.persistence.Entity;
 @DiscriminatorValue("GAME")
 public class Game extends Item {
 
-	private Double price;
-
 	public Game() {
 		super();
 		this.setType(ItemType.GAME);
 	}
 
-	public Game(ItemType type, String title, String creator, String description, Set<Category> categories,
-			Double price) {
-		super(ItemType.GAME, title, creator, description, categories);
-		this.price = price;
+	public Game(ItemType type, String title, String creator, String description, Double price,
+			Set<Category> categories) {
+		super(ItemType.GAME, title, creator, description, price, categories);
 	}
 
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
 }

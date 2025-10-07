@@ -1,5 +1,7 @@
 package com.bookweb.dto;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class ItemDTO {
@@ -9,18 +11,17 @@ public class ItemDTO {
 	private String description;
 	private String type; // BOOK, MOVIE, CARTOON, GAME
 	private Set<String> categories;
-	private Set<Long> categoryId;
+	private List<Long> categoryId = new ArrayList<>();
 	private Set<ReviewDTO> reviews;
 	private String imageUrl = "/img/placeholder.png";
-	// fields เฉพาะ type
-	private Double price; // สำหรับ GAME
-	private String studio; // สำหรับ CARTOON
+	private Double price;
+	private Long ownerId;
 
 	public ItemDTO() {
 	}
 
 	public ItemDTO(Long id, String title, String creator, String description, String type, Set<String> categories,
-			Set<ReviewDTO> reviews, String imageUrl) {
+			Set<ReviewDTO> reviews, String imageUrl, Double price, Long ownerId) {
 		this.id = id;
 		this.title = title;
 		this.creator = creator;
@@ -29,6 +30,8 @@ public class ItemDTO {
 		this.categories = categories;
 		this.reviews = reviews;
 		this.imageUrl = imageUrl;
+		this.price = price;
+		this.ownerId = ownerId;
 	}
 
 	// ----- Getter/Setter -----
@@ -80,11 +83,11 @@ public class ItemDTO {
 		this.categories = categories;
 	}
 
-	public Set<Long> getCategoryID() {
+	public List<Long> getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryID(Set<Long> categoryId) {
+	public void setCategoryId(List<Long> categoryId) {
 		this.categoryId = categoryId;
 	}
 
@@ -112,12 +115,12 @@ public class ItemDTO {
 		this.price = price;
 	}
 
-	public String getStudio() {
-		return studio;
+	public Long getOwnerId() {
+		return ownerId;
 	}
 
-	public void setStudio(String studio) {
-		this.studio = studio;
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
 	}
 
 }
