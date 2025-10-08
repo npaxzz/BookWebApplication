@@ -1,6 +1,0 @@
-[build]
-builder = "NIXPACKS"
-buildCommand = "./mvnw -DskipTests clean package"
-
-[start]
-command = "java -jar target/*.jar"
