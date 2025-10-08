@@ -87,11 +87,6 @@
         <artifactId>spring-boot-starter-test</artifactId>
         <scope>test</scope>
     </dependency>
-    <dependency>
-    	<groupId>com.cp.lab09S1CL</groupId>
-    	<artifactId>lab09_2567_clientWeb_sec01</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
-    </dependency>
     
     <dependency>
     <groupId>org.json</groupId>
