@@ -48,7 +48,7 @@ INSERT INTO item (id, dtype, type, title, creator, description, price, imageUrl)
 -- ===== MOVIES =====
 INSERT INTO item (id, dtype, type, title, creator, description, price, imageUrl) VALUES
 (4, 'MOVIE', 'MOVIE', 'Inception', 'Christopher Nolan', 'Mind-bending thriller', 12.50,
- 'https://m.media-amazon.com/images/I/91pR9wKJ3zL._AC_SY679_.jpg'),
+ 'https://m.media-amazon.com/images/M/MV5BZjhkNjM0ZTMtNGM5MC00ZTQ3LTk3YmYtZTkzYzdiNWE0ZTA2XkEyXkFqcGc@._V1_.jpg'),
 (5, 'MOVIE', 'MOVIE', 'The Matrix', 'Lana Wachowski', 'Sci-fi action movie', 10.00,
  'https://m.media-amazon.com/images/I/51EG732BV3L.jpg'),
 (13, 'MOVIE', 'MOVIE', 'Titanic', 'James Cameron', 'Romantic tragedy on a doomed ship', 9.00,
